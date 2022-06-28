@@ -1,3 +1,100 @@
+<?php
+// Include config file
+require_once "includes/connect.php";
+
+// Define variables and initialize with empty values
+$username = $password = $confirm_password = "";
+$username_err = $password_err = $confirm_password_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Validate username
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Please enter a username.";
+    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+        $username_err = "Username can only contain letters, numbers, and underscores.";
+    } else{
+        // Prepare a select statement
+        $sql = "SELECT id FROM users WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($conn, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = trim($_POST["username"]);
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    $username_err = "This username is already taken.";
+                } else{
+                    $username = trim($_POST["username"]);
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Validate password
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter a password.";     
+    } elseif(strlen(trim($_POST["password"])) < 6){
+        $password_err = "Password must have atleast 6 characters.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate confirm password
+    if(empty(trim($_POST["confirm_password"]))){
+        $confirm_password_err = "Please confirm password.";     
+    } else{
+        $confirm_password = trim($_POST["confirm_password"]);
+        if(empty($password_err) && ($password != $confirm_password)){
+            $confirm_password_err = "Password did not match.";
+        }
+    }
+    
+    // Check input errors before inserting in database
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+        
+        // Prepare an insert statement
+        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+         
+        if($stmt = mysqli_prepare($conn, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            
+            // Set parameters
+            $param_username = $username;
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Redirect to login page
+                header("location: index.php");
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($conn);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -9,7 +106,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Falcon | Dashboard &amp; Web App Template</title>
+    <title>Reservoir | Registration</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -23,6 +120,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
     <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -31,25 +129,13 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="./vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
     <link href="./assets/css/theme.min.css" rel="stylesheet" id="style-default">
-    <link href="./assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-    <script>
-      var isRTL = JSON.parse(localStorage.getItem('isRTL'));
-      if (isRTL) {
-        var linkDefault = document.getElementById('style-default');
-        var userLinkDefault = document.getElementById('user-style-default');
-        linkDefault.setAttribute('disabled', true);
-        userLinkDefault.setAttribute('disabled', true);
-        document.querySelector('html').setAttribute('dir', 'rtl');
-      } else {
-        var linkRTL = document.getElementById('style-rtl');
-        var userLinkRTL = document.getElementById('user-style-rtl');
-        linkRTL.setAttribute('disabled', true);
-        userLinkRTL.setAttribute('disabled', true);
-      }
-    </script>
+    <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+
+
   </head>
 
   <body>
+
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
@@ -69,41 +155,34 @@
                       </div>
                     </div>
                     <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                      <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4" href="index.html">Log In</a></p>
+                      <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4" href="index.php">Log In</a></p>
                     </div>
                   </div>
                   <div class="col-md-7 d-flex flex-center">
                     <div class="p-4 p-md-5 flex-grow-1">
                       <h3>Register</h3>
-
-
-
-                      <form method="POST" action="./index.php">
-                        <div class="mb-3">
-                          <label class="form-label" for="card-name">Name</label><input class="form-control" type="text" value="laurenna" autocomplete="on" id="card-name"  name="Name"/></div>
-                        <div class="mb-3">
-                          <label class="form-label" for="card-email">Email address</label><input class="form-control" type="email" autocomplete="on" id="card-email" name="email"/></div>
-                        <div class="row gx-2">
-                          <div class="mb-3 col-sm-6">
-                            <label class="form-label" for="card-password">Password</label><input class="form-control" type="password" autocomplete="on" id="card-password" name="password" /></div>
-                          <div class="mb-3 col-sm-6">
-                            <label class="form-label" for="card-confirm-password">Confirm Password</label><input class="form-control" type="password" autocomplete="on" id="card-confirm-password" name="passworde"/></div>
+                      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                            <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                        </div>    
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                            <span class="invalid-feedback"><?php echo $password_err; ?></span>
                         </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="card-register-checkbox" name="checkbox"/><label class="form-label" for="card-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label></div>
-                        <div class="mb-3"><a><button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button></a></div>
-                     </form>
-
-
-
-                      <div class="position-relative mt-4">
-                        <hr class="bg-300" />
-                        <div class="divider-content-center">or register with</div>
-                      </div>
-                      <div class="row g-2 mt-2">
-                        <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                        <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                      </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                            <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                            <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+                        </div>
+                        <p>Already have an account? <a href="index.php">Login here</a></p>
+                    </form>
                     </div>
                   </div>
                 </div>

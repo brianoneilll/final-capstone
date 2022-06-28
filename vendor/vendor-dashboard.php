@@ -331,8 +331,8 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="profile.html">Profile &amp; account</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="logout.html">Logout</a>
+                    <a class="dropdown-item" href="./settings.php">Settings</a>
+                    <a class="dropdown-item" href="../logout.php">Logout</a>
                   </div>
                 </div>
               </li>

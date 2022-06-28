@@ -1,3 +1,93 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: ./vendor/vendor-dashboard.php");
+    exit;
+}
+ 
+// Include config file
+require_once "includes/connect.php";
+ 
+// Define variables and initialize with empty values
+$username = $password = "";
+$username_err = $password_err = $login_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Check if username is empty
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Please enter username.";
+    } else{
+        $username = trim($_POST["username"]);
+    }
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate credentials
+    if(empty($username_err) && empty($password_err)){
+        // Prepare a select statement
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        
+        if($stmt = mysqli_prepare($conn, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = $username;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if username exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username;                            
+                            
+                            // Redirect user to welcome page
+                            header("location: ./vendor/vendor-dashboard.php");
+                        } else{
+                            // Password is not valid, display a generic error message
+                            $login_err = "Invalid username or password.";
+                        }
+                    }
+                } else{
+                    // Username doesn't exist, display a generic error message
+                    $login_err = "Invalid username or password.";
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($conn);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -32,35 +122,9 @@
     <link href="./vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
     <link href="./assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="./assets/css/user.min.css" rel="stylesheet" id="user-style-default">
-    <script>
-      var isRTL = JSON.parse(localStorage.getItem('isRTL'));
-      if (isRTL) {
-        var linkDefault = document.getElementById('style-default');
-        var userLinkDefault = document.getElementById('user-style-default');
-        linkDefault.setAttribute('disabled', true);
-        userLinkDefault.setAttribute('disabled', true);
-        document.querySelector('html').setAttribute('dir', 'rtl');
-      } else {
-        var linkRTL = document.getElementById('style-rtl');
-        var userLinkRTL = document.getElementById('user-style-rtl');
-        linkRTL.setAttribute('disabled', true);
-        userLinkRTL.setAttribute('disabled', true);
-      }
-    </script>
   </head>
 
   <body>
-  <?php 
-  
-  $name = $_POST["Name"];
-  $email = $_POST["email"];
-  $password = $_POST["password"];  
-  $confirm = $_POST["passworde"];?>
-  <h1><?php echo "NAME: ".$name; ?></h1>
-  <h1><?php echo "EMAIL: ".$email; ?></h1>
-  <h1><?php echo "PASSWORD: ".$password; ?></h1>
-  <h1><?php echo "CONFIRMED PASSWORD: ".$confirm; ?></h1>
-
 
       
     <!-- ===============================================-->
@@ -82,7 +146,7 @@
                       </div>
                     </div>
                     <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                      <p class="text-white">Don't have an account?<br><a class="text-decoration-underline link-light" href="register.html">Get started!</a></p>
+                      <p class="text-white">Don't have an account?<br><a class="text-decoration-underline link-light" href="register.php">Get started!</a></p>
                       <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">Read our <a class="text-decoration-underline text-white" href="#!">terms</a> and <a class="text-decoration-underline text-white" href="#!">conditions </a></p>
                     </div>
                   </div>
@@ -93,29 +157,23 @@
                           <h3>Account Login</h3>
                         </div>
                       </div>
-                      <form method="POST" >
-                        <div class="mb-3"><label class="form-label" for="card-email">Email address</label><input name="Email" class="form-control" id="card-email" type="email" /></div>
-                        <div class="mb-3">
-                          <div class="d-flex justify-content-between"><label class="form-label" for="card-password">Password</label></div><input name="Password" class="form-control" id="card-password" type="password" />
-                        </div>
-                        <div class="row flex-between-center">
-                          <div class="col-auto">
-                            <div class="form-check mb-0"><input class="form-check-input" type="checkbox" id="card-checkbox" checked="checked" /><label class="form-check-label mb-0" for="card-checkbox">Remember me</label></div>
+
+                      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                          <div class="form-group">
+                              <label>Username</label>
+                              <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                              <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                          </div>    
+                          <div class="form-group">
+                              <label>Password</label>
+                              <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                              <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                          </div><br>
+                          <div class="form-group">
+                              <input type="submit" class="btn btn-primary" value="Login">
                           </div>
-                          <div class="col-auto"><a class="fs--1" href="forgot-password.html">Forgot Password?</a></div>
-                        </div>
-                        <div class="mb-3"><a href='./admin/admin-dashboard.html'><button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in as Admin</button></a></div>
-                        <div class="mb-3"><a href='./vendor/pricing-alt.html'><button class="btn btn-primary d-block w-100 mt-3">Log in as Vendor</button></a></div>
-                        <div class="mb-3"><a href='./customer/customer-dashboard.html'><button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in as Customer</button></a></div>
+                          <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
                       </form>
-                      <div class="position-relative mt-4">
-                        <hr class="bg-300" />
-                        <div class="divider-content-center">or log in with</div>
-                      </div>
-                      <div class="row g-2 mt-2">
-                        <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
-                        <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100" href="#"><span class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a></div>
-                      </div>
                     </div>
                   </div>
                 </div>
