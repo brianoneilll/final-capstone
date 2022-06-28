@@ -9,7 +9,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Falcon | Dashboard &amp; Web App Template</title>
+    <title>Reservoir | Login</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -50,6 +50,19 @@
   </head>
 
   <body>
+  <?php 
+  
+  $name = $_POST["Name"];
+  $email = $_POST["email"];
+  $password = $_POST["password"];  
+  $confirm = $_POST["passworde"];?>
+  <h1><?php echo "NAME: ".$name; ?></h1>
+  <h1><?php echo "EMAIL: ".$email; ?></h1>
+  <h1><?php echo "PASSWORD: ".$password; ?></h1>
+  <h1><?php echo "CONFIRMED PASSWORD: ".$confirm; ?></h1>
+
+
+      
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
@@ -69,25 +82,35 @@
                       </div>
                     </div>
                     <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                      <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4" href="index.html">Log In</a></p>
+                      <p class="text-white">Don't have an account?<br><a class="text-decoration-underline link-light" href="register.html">Get started!</a></p>
+                      <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">Read our <a class="text-decoration-underline text-white" href="#!">terms</a> and <a class="text-decoration-underline text-white" href="#!">conditions </a></p>
                     </div>
                   </div>
                   <div class="col-md-7 d-flex flex-center">
                     <div class="p-4 p-md-5 flex-grow-1">
-                      <h3>Register</h3>
-                      <form>
-                        <div class="mb-3"><label class="form-label" for="card-name">Name</label><input class="form-control" type="text" autocomplete="on" id="card-name" /></div>
-                        <div class="mb-3"><label class="form-label" for="card-email">Email address</label><input class="form-control" type="email" autocomplete="on" id="card-email" /></div>
-                        <div class="row gx-2">
-                          <div class="mb-3 col-sm-6"><label class="form-label" for="card-password">Password</label><input class="form-control" type="password" autocomplete="on" id="card-password" /></div>
-                          <div class="mb-3 col-sm-6"><label class="form-label" for="card-confirm-password">Confirm Password</label><input class="form-control" type="password" autocomplete="on" id="card-confirm-password" /></div>
+                      <div class="row flex-between-center">
+                        <div class="col-auto">
+                          <h3>Account Login</h3>
                         </div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="card-register-checkbox" /><label class="form-label" for="card-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label></div>
-                        <div class="mb-3"><button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Register</button></div>
+                      </div>
+                      <form method="POST" >
+                        <div class="mb-3"><label class="form-label" for="card-email">Email address</label><input name="Email" class="form-control" id="card-email" type="email" /></div>
+                        <div class="mb-3">
+                          <div class="d-flex justify-content-between"><label class="form-label" for="card-password">Password</label></div><input name="Password" class="form-control" id="card-password" type="password" />
+                        </div>
+                        <div class="row flex-between-center">
+                          <div class="col-auto">
+                            <div class="form-check mb-0"><input class="form-check-input" type="checkbox" id="card-checkbox" checked="checked" /><label class="form-check-label mb-0" for="card-checkbox">Remember me</label></div>
+                          </div>
+                          <div class="col-auto"><a class="fs--1" href="forgot-password.html">Forgot Password?</a></div>
+                        </div>
+                        <div class="mb-3"><a href='./admin/admin-dashboard.html'><button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in as Admin</button></a></div>
+                        <div class="mb-3"><a href='./vendor/pricing-alt.html'><button class="btn btn-primary d-block w-100 mt-3">Log in as Vendor</button></a></div>
+                        <div class="mb-3"><a href='./customer/customer-dashboard.html'><button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log in as Customer</button></a></div>
                       </form>
                       <div class="position-relative mt-4">
                         <hr class="bg-300" />
-                        <div class="divider-content-center">or register with</div>
+                        <div class="divider-content-center">or log in with</div>
                       </div>
                       <div class="row g-2 mt-2">
                         <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="#"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
@@ -104,6 +127,7 @@
     </main><!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
+
 
     <!-- ===============================================-->
     <!--    JavaScripts-->
