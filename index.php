@@ -7,7 +7,6 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: ./vendor/vendor-dashboard.php");
     exit;
 }
- 
 // Include config file
 require_once "includes/connect.php";
  

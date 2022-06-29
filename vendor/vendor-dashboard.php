@@ -1286,5 +1286,4 @@ require_once "../includes/connect.php";
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js "></script>
   </body>
-
 </html>
