@@ -383,7 +383,7 @@ require_once "../includes/connect.php";
                       <div class="position-relative z-index-2">
                         <div>
                           <h3 class="text-primary mb-1">Good Afternoon, <?php
-                            $sql = "SELECT * FROM users WHERE username = '';";
+                            $sql = "SELECT * FROM users WHERE username = '?';";
                             $result = mysqli_query($conn, $sql);
                             $resultCheck = mysqli_num_rows($result);
                             
@@ -1286,5 +1286,4 @@ require_once "../includes/connect.php";
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js "></script>
   </body>
-
 </html>
