@@ -1,3 +1,13 @@
+<?php
+// Initialize the session
+session_start();
+ 
+
+ 
+// Include config file
+require_once "../includes/connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -86,7 +96,7 @@
 
 
                 <li class="nav-item">
-                  <a class="nav-link active" href="vendor-dashboard.html" aria-expanded="false">
+                  <a class="nav-link active" href="vendor-dashboard.php" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie">
                     </span></span><span class="nav-link-text ps-1">Dashboard</span></div>
                   </a>
@@ -372,7 +382,17 @@
                       <!--/.bg-holder-->
                       <div class="position-relative z-index-2">
                         <div>
-                          <h3 class="text-primary mb-1">Good Afternoon, Marites!</h3>
+                          <h3 class="text-primary mb-1">Good Afternoon, <?php
+                            $sql = "SELECT * FROM users WHERE created_at = max(timestamp);";
+                            $result = mysqli_query($conn, $sql);
+                            $resultCheck = mysqli_num_rows($result);
+                            
+                            if($resultCheck > 0){
+                              while($row = mysqli_fetch_assoc($result)){
+                                echo $row['username'] ."<br>";
+                              }
+                            }
+                            ?></h3>
                           <p>Here’s what happening with your store today </p>
                         </div>
                         <div class="d-flex py-3">
