@@ -383,7 +383,7 @@ require_once "../includes/connect.php";
                       <div class="position-relative z-index-2">
                         <div>
                           <h3 class="text-primary mb-1">Good Afternoon, <?php
-                            $sql = "SELECT * FROM users WHERE created_at = max(timestamp);";
+                            $sql = "SELECT * FROM users WHERE username = '';";
                             $result = mysqli_query($conn, $sql);
                             $resultCheck = mysqli_num_rows($result);
                             
