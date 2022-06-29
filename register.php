@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 // Include config file
 require_once "includes/connect.php";
 // Define variables and initialize with empty values
@@ -83,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: index.php");
+                header("location: store-register.php");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
