@@ -342,7 +342,7 @@ require_once "../includes/connect.php";
                     <a class="dropdown-item" href="profile.html">Profile &amp; account</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./settings.php">Settings</a>
-                    <a class="dropdown-item" href="../logout.php">Logout</a>
+                    <a class="dropdown-item" href="../logout.php" onclick="<?php session_destroy(); ?>">Logout</a>
                   </div>
                 </div>
               </li>
@@ -383,7 +383,14 @@ require_once "../includes/connect.php";
                       <div class="position-relative z-index-2">
                         <div>
                           <h3 class="text-primary mb-1">Good Afternoon, <?php
+<<<<<<< HEAD
                             $sql = "SELECT username FROM users WHERE id = '9';";
+=======
+
+                            $id = $_SESSION["id"];
+                            $username = $_SESSION["username"];
+                            $sql = "SELECT username FROM users WHERE id = '$id' && username = '$username' ";
+>>>>>>> ca3ac93c9e490f3797d419183fe0d4a09f82f336
                             $result = mysqli_query($conn, $sql);
                             $resultCheck = mysqli_num_rows($result);
                             
