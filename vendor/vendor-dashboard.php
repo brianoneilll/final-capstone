@@ -383,7 +383,7 @@ require_once "../includes/connect.php";
                       <div class="position-relative z-index-2">
                         <div>
                           <h3 class="text-primary mb-1">Good Afternoon, <?php
-                            $sql = "SELECT username FROM users WHERE id = '6';";
+                            $sql = "SELECT username FROM users WHERE id = '9';";
                             $result = mysqli_query($conn, $sql);
                             $resultCheck = mysqli_num_rows($result);
                             
