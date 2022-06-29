@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+
+
+
 // Include config file
 require_once "includes/connect.php";
 
@@ -60,6 +63,7 @@ require_once "includes/connect.php";
   </head>
 
   <body>
+
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->

@@ -1,3 +1,11 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Include config file
+require_once "../includes/connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -90,7 +98,7 @@
 
 
                 <li class="nav-item">
-                  <a class="nav-link" href="vendor-dashboard.html" aria-expanded="false">
+                  <a class="nav-link" href="vendor-dashboard.php" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie">
                     </span></span><span class="nav-link-text ps-1">Dashboard</span></div>
                   </a>
@@ -337,7 +345,7 @@
                     <a class="dropdown-item" href="profile.html">Profile &amp; account</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="settings.php">Settings</a>
-                    <a class="dropdown-item" href="../logout.php">Logout</a>
+                    <a class="dropdown-item" href="../logout.php" onclick="<?php session_destroy(); ?>">Logout</a>
                   </div>
                 </div>
               </li>
@@ -375,7 +383,11 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-8">
-                  <h4 class="mb-1">Rafshey Water Refilling Station<span data-bs-toggle="tooltip" data-bs-placement="right" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></h4>
+                  <h4 class="mb-1">
+                    
+                  <!-- DAPAT NAME NG STORE DITO YUNG GALING SA DB -->
+                    
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></h4>
                   <h5 class="fs-0 fw-normal">Angeles, Pampanga</h5>
                   <div class="border-dashed-bottom my-4 d-lg-none"></div>
                 </div>

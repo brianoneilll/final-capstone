@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: ./vendor/vendor-dashboard.php");
+    header("location: vendor/vendor-dashboard.php");
     exit;
 }
 // Include config file
@@ -63,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["username"] = $username;                            
                             
                             // Redirect user to welcome page
-                            header("location: ./vendor/vendor-dashboard.php");
+                            header("location: vendor/vendor-dashboard.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -143,10 +143,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                       <div class="z-index-1 position-relative"><a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="../../../index.html">Reservoir</a>
                         <p class="opacity-75 text-white">With the power of Reservoir, you can now purchase water, while you are on your comfort zone!</p>
                       </div>
-                    </div>
-                    <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                      <p class="text-white">Don't have an account?<br><a class="text-decoration-underline link-light" href="register.php">Get started!</a></p>
-                      <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">Read our <a class="text-decoration-underline text-white" href="#!">terms</a> and <a class="text-decoration-underline text-white" href="#!">conditions </a></p>
                     </div>
                   </div>
                   <div class="col-md-7 d-flex flex-center">

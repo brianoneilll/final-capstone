@@ -6,6 +6,7 @@ session_start();
  
 // Include config file
 require_once "../includes/connect.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -339,7 +340,7 @@ require_once "../includes/connect.php";
                   <div class="bg-white dark__bg-1000 rounded-2 py-2">
                     <a class="dropdown-item fw-bold text-warning" href="#!"><span class="fas fa-crown me-1"></span><span>Go Pro</span></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="profile.html">Profile &amp; account</a>
+                    <a class="dropdown-item" href="profile.php">Profile &amp; account</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./settings.php">Settings</a>
                     <a class="dropdown-item" href="../logout.php" onclick="<?php session_destroy(); ?>">Logout</a>
@@ -1255,7 +1256,9 @@ require_once "../includes/connect.php";
                 </div>
               </div>
             </div>
-          </div>                       
+          </div>          
+
+    
           <!----------------------------------------- START OF FOOTER--------------------------------------------->
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">

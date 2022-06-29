@@ -13,5 +13,5 @@
 
     mysqli_query($conn, $sql);
 
-    header("Location: ../index.php");
+    header("Location: ../vendor/vendor-dashboard.php");
 ?>

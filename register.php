@@ -84,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: store-register.php");
+                header("location: index.php");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -156,9 +156,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                       <div class="z-index-1 position-relative"><a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="../../../index.html">Reservoir</a>
                         <p class="opacity-75 text-white">With the power of Reservoir, you can now purchase water, while you are on your comfort zone!</p>
                       </div>
-                    </div>
-                    <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                      <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4" href="index.php">Log In</a></p>
                     </div>
                   </div>
                   <div class="col-md-7 d-flex flex-center">
