@@ -10,6 +10,6 @@ session_destroy();
  
 
 // Redirect to login page
-header("location:index.php");
+header("location:vendor-login.php");
 exit;
 ?>
