@@ -161,7 +161,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
                 <li class="nav-item">
-                  <a class="nav-link" href="vendor-dashboard.html" aria-expanded="false">
+                  <a class="nav-link" href="vendor-dashboard.php" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie">
                     </span></span><span class="nav-link-text ps-1">Dashboard</span></div>
                   </a>
@@ -189,7 +189,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="clients.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="clients.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users">
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
                   </a>

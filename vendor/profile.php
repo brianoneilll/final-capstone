@@ -126,7 +126,7 @@ require_once "../includes/connect.php";
                 </li>
                 
                 <li class="nav-item">
-                  <a class="nav-link" href="clients.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="clients.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users">
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
                   </a>
@@ -345,7 +345,7 @@ require_once "../includes/connect.php";
                     <a class="dropdown-item" href="profile.html">Profile &amp; account</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="settings.php">Settings</a>
-                    <a class="dropdown-item" href="../logout.php" onclick="<?php session_destroy(); ?>">Logout</a>
+                    <a class="dropdown-item" href="../logout.php">Logout</a>
                   </div>
                 </div>
               </li>

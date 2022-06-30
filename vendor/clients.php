@@ -1,3 +1,14 @@
+<?php
+// Initialize the session
+session_start();
+ 
+
+ 
+// Include config file
+require_once "../includes/connect.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -118,7 +129,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link active" href="clients.html" role="button" aria-expanded="false">
+                  <a class="nav-link active" href="clients.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users">
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
                   </a>
