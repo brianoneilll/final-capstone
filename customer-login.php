@@ -5,7 +5,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedinn"]) && $_SESSION["loggedinn"] === true){
-    header("location: customer/customer-dashboard.html");
+    header("location: customer/customer-dashboard.php");
     exit;
 }
 // Include config file
@@ -65,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         
                             
                             // Redirect user to welcome page
-                            header("location: customer/customer-dashboard.html");
+                            header("location: customer/customer-dashboard.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid phone or password.";

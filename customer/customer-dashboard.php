@@ -195,11 +195,11 @@
                     <a class="dropdown-item fw-bold text-warning" href="#!"><span class="fas fa-crown me-1"></span><span>Go Pro</span></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#!">Set status</a>
-                    <a class="dropdown-item" href="../../../pages/user/profile.html">Profile &amp; account</a>
+                    <a class="dropdown-item" href="profile.html">Profile &amp; account</a>
                     <a class="dropdown-item" href="#!">Feedback</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="../../../pages/user/settings.html">Settings</a>
-                    <a class="dropdown-item" href="../../../pages/authentication/card/logout.html">Logout</a>
+                    <a class="dropdown-item" href="settings.html">Settings</a>
+                    <a class="dropdown-item" href="../customer- logout.php">Logout</a>
                   </div>
                 </div>
               </li>
