@@ -11,7 +11,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "includes/connect.php";
  
 // Define variables and initialize with empty values
-$username = $password = "";
+$username = $password = $Name = "";
 $username_err = $password_err = $login_err = "";
  
 // Processing form data when form is submitted
@@ -60,7 +60,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            $_SESSION["username"] = $username;  
+                        
                             
                             // Redirect user to welcome page
                             header("location: vendor/vendor-dashboard.php");
