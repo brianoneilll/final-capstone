@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+// Include config file
+require_once "includes/connect.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -33,6 +40,8 @@
     <link href="./vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
     <link href="./assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 
   </head>
@@ -60,7 +69,7 @@
                   <div class="col-md-7 d-flex flex-center">
                     <div class="p-4 p-md-5 flex-grow-1">
                       <h3>Customer Registration</h3>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="includes/register-customer.php" method="post">
                           <div class="form-group">
                               <label>First Name</label>
                               <input type="text" name="fname" class="form-control">
@@ -77,20 +86,36 @@
                               <span class="invalid-feedback"></span>
                           </div>
                           <div class="form-group">
-                              <label>Address</label>
-                              <input type="text" name="address" class="form-control">
+                              <label>Street</label>
+                              <input type="text" name="street" class="form-control">
                               <span class="invalid-feedback"></span>
-                          </div>
+                          </div> 
+                          <div class="form-group">
+                              <label>Barangay</label>
+                              <input type="text" name="barangay" class="form-control">
+                              <span class="invalid-feedback"></span>
+                          </div> 
+                          <div class="form-group">
+                              <label>City</label>
+                              <input type="text" name="city" class="form-control">
+                              <span class="invalid-feedback"></span>
+                          </div> 
+                          <div class="form-group">
+                              <label>Province</label>
+                              <input type="text" name="province" class="form-control">
+                              <span class="invalid-feedback"></span>
+                          </div> <br>
                           <div class="form-group">
                               <label>Phone Number</label>
-                              <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="63948-685-1842" class="form-control">
+                              <input type="tel" id="phone" name="phone" class="form-control">
                               <span class="invalid-feedback"></span>
                           </div><br>
                           <div class="form-group">
-                              <input type="submit" class="btn btn-primary" value="Login">
+                              <input type="submit" class="btn btn-primary" value="Register">
                           </div><br>
                           <p>Already have an account? <a href="customer-login.php">Login Here</a>.</p>
                       </form>
+                      <div class="alert alert-info" style="display: none;"></div>
                     </div>
                   </div>
                 </div>
@@ -116,5 +141,24 @@
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
   </body>
+
+  <script>
+   const phoneInputField = document.querySelector("#phone");
+   const phoneInput = window.intlTelInput(phoneInputField, {
+     utilsScript:
+       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+   });
+
+    const info = document.querySelector(".alert-info");
+
+    function process(event) {
+    event.preventDefault();
+
+    const phoneNumber = phoneInput.getNumber();
+
+    info.style.display = "";
+    info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+    }
+   </script>
 
 </html>

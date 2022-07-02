@@ -1,4 +1,93 @@
 
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedinn"]) && $_SESSION["loggedinn"] === true){
+    header("location: customer/customer-dashboard.html");
+    exit;
+}
+// Include config file
+require_once "includes/connect.php";
+ 
+// Define variables and initialize with empty values
+$phone = $password = "";
+$phone_err = $password_err = $login_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Check if phone is empty
+    if(empty(trim($_POST["phone"]))){
+        $phone_err = "Please enter phone.";
+    } else{
+        $phone = trim($_POST["phone"]);
+    }
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter your password.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate credentials
+    if(empty($phone_err) && empty($password_err)){
+        // Prepare a select statement
+        $sql = "SELECT id, phone_number, pass FROM customer WHERE phone_number = ?";
+        
+        if($stmt = mysqli_prepare($conn, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_phone);
+            
+            // Set parameters
+            $param_phone = $phone;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if phone exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $phone, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedinn"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["phone"] = $phone;  
+                        
+                            
+                            // Redirect user to welcome page
+                            header("location: customer/customer-dashboard.html");
+                        } else{
+                            // Password is not valid, display a generic error message
+                            $login_err = "Invalid phone or password.";
+                        }
+                    }
+                } else{
+                    // Username doesn't exist, display a generic error message
+                    $login_err = "Invalid phone or password.";
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+    
+    // Close connection
+    mysqli_close($conn);
+}
+?> 
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -24,6 +113,8 @@
     <meta name="theme-color" content="#ffffff">
     <script src="../../../assets/js/config.js"></script>
     <script src="../../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -66,8 +157,8 @@
                       </div>
                       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" name="username" class="form-control">
+                            <label>Phone</label><br>
+                            <input type="tel" id="phone" name="phone" class="form-control">
                             <span class="invalid-feedback"></span>
                         </div>    
                         <div class="form-group">
@@ -76,11 +167,12 @@
                             <span class="invalid-feedback"></span>
                         </div><br>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Register">
+                            <input type="submit" class="btn btn-primary" value="Login">
                             <input type="reset" class="btn btn-secondary ml-2" value="Reset">
                         </div>
                         <p>Don't have an account? <a href="customer-register.php">Register here</a></p>
                     </form>
+                    <div class="alert alert-info" style="display: none;"></div>
                     </div>
                   </div>
                 </div>
@@ -107,5 +199,22 @@
     <script src="../../../vendors/list.js/list.min.js"></script>
     <script src="../../../assets/js/theme.js"></script>
   </body>
+  <script>
+   const phoneInputField = document.querySelector("#phone");
+   const phoneInput = window.intlTelInput(phoneInputField, {
+     utilsScript:
+       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+   });
 
+    const info = document.querySelector(".alert-info");
+
+    function process(event) {
+    event.preventDefault();
+
+    const phoneNumber = phoneInput.getNumber();
+
+    info.style.display = "";
+    info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+    }
+   </script>
 </html>
