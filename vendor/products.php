@@ -20,15 +20,17 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/reservoir.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/reservoir.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/reservoir.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/reservoir.png">
-    <link rel="manifest" href="../assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileImage" content="../assets/img/reservoir.png">
-    <meta name="theme-color" content="#ffffff">
-    <script src="../assets/js/config.js"></script>
-    <script src="../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+<link rel='dns-prefetch' href='//maps.googleapis.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="GRBid - Marketplace Auctions WooCommerce Theme &raquo; Feed" href="https://bidpro.webdevia.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="GRBid - Marketplace Auctions WooCommerce Theme &raquo; Comments Feed" href="https://bidpro.webdevia.com/comments/feed/" />
+<link rel="preconnect" href="https://fonts.gstatic.com"><script>
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/bidpro.webdevia.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.0"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -116,7 +118,7 @@
                 <li class="nav-item">
                   <a class="nav-link active" href="products.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-burn">
-                    </span></span><span class="nav-link-text ps-1">Products</span></div>
+                    </span></span><span class="nav-link-text ps-1">Add Product</span></div>
                   </a>
                 </li>
 
@@ -368,6 +370,55 @@
               navbarTopCombo.remove(navbarTopCombo);
             }
           </script>
+  <!-- content  -->
+  <main class="l-main row align-center add-listing-page">
+    <div class="main large-8 small-12 columns">
+        <div class="body field clearfix ">
+            <H2>Add Product</h2>
+            <form method="post" action="#">
+                <div class="row">
+                <div class="large-12 columns">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" required>
+                </div>
+                <div class="large-12 columns">
+                    <label for="_description">Description</label>
+                    <textarea name="_description" id="_description" rows="5"></textarea>
+                </div>
+                <div class="large-12 columns">
+                    <label for="_short_description">Short description</label>
+                    <textarea name="_short_description" id="_short_description" rows="2"></textarea>
+                </div>
+        
+                <div class="medium-4 columns">
+                    <label for="_auction_type">Type</label>
+                    <select name="_auction_type" id="_auction_type" data-storage="meta">
+                        <option value="normal" >Mineral</option>
+                        <option value="reverse">Purified</option>
+                        <option value="normal">Alkaline</option>
+                        <option value="reverse">Distilled</option>
+                    </select>
+                </div>
+                
+                <div class="medium-4 columns">
+                    <label for="_auction_start_price">Price</label>
+                    <input type="text" name="_auction_start_price" id="_auction_start_price" data-storage="meta" />
+                </div>
+                <div class="large-12 columns">
+                    <label for="images">Images</label>        
+                    <div class="input-images"></div>
+                </div>   
+
+        <br>
+        </div>
+                <input type="submit" class="wd-btn" />
+            </form> 
+    </div>
+                      
+        
+    </div>
+  </main>
+  <!-- /content  -->
 
     <script src="../vendors/popper/popper.min.js"></script>
     <script src="../vendors/bootstrap/bootstrap.min.js"></script>

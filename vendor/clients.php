@@ -122,7 +122,7 @@ require_once "../includes/connect.php";
                 <li class="nav-item">
                   <a class="nav-link" href="products.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-burn">
-                    </span></span><span class="nav-link-text ps-1">Products</span></div>
+                    </span></span><span class="nav-link-text ps-1">Add Product</span></div>
                   </a>
                 </li>
 

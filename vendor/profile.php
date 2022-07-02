@@ -4,6 +4,7 @@ session_start();
  
 // Include config file
 require_once "../includes/connect.php";
+ 
 ?>
 
 <!DOCTYPE html>
@@ -384,10 +385,11 @@ require_once "../includes/connect.php";
               <div class="row">
                 <div class="col-lg-8">
                   <h4 class="mb-1">
+                  <?= $_SESSION['Names']; ?>
                     
-                  <!-- DAPAT NAME NG STORE DITO YUNG GALING SA DB -->
-                    
-                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small></span></h4>
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small>
+
+              </span></h4>
                   <h5 class="fs-0 fw-normal">Angeles, Pampanga</h5>
                   <div class="border-dashed-bottom my-4 d-lg-none"></div>
                 </div>

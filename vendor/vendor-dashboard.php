@@ -120,7 +120,7 @@ require_once "../includes/connect.php";
                 <li class="nav-item">
                   <a class="nav-link" href="products.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-burn">
-                    </span></span><span class="nav-link-text ps-1">Products</span></div>
+                    </span></span><span class="nav-link-text ps-1">Add Product</span></div>
                   </a>
                 </li>
 
@@ -199,7 +199,7 @@ require_once "../includes/connect.php";
                         </div>
                       </a>
                       <hr class="bg-200 dark__bg-900" />
-                      <h6 class="dropdown-header fw-medium text-uppercase px-card fs--2 pt-0 pb-2">Members</h6><a class="dropdown-item px-card py-2" href="../pages/user/profile.html">
+                      <h6 class="dropdown-header fw-medium text-uppercase px-card fs--2 pt-0 pb-2">Members</h6><a class="dropdown-item px-card py-2" href="profile.php">
                         <div class="d-flex align-items-center">
                           <div class="avatar avatar-l status-online me-2">
                             <img class="rounded-circle" src="../assets/img/team/1.jpg" alt="" />
@@ -210,7 +210,7 @@ require_once "../includes/connect.php";
                           </div>
                         </div>
                       </a>
-                      <a class="dropdown-item px-card py-2" href="../pages/user/profile.html">
+                      <a class="dropdown-item px-card py-2" href="profile.php">
                         <div class="d-flex align-items-center">
                           <div class="avatar avatar-l me-2">
                             <img class="rounded-circle" src="../assets/img/team/2.jpg" alt="" />
@@ -221,7 +221,7 @@ require_once "../includes/connect.php";
                           </div>
                         </div>
                       </a>
-                      <a class="dropdown-item px-card py-2" href="../pages/user/profile.html">
+                      <a class="dropdown-item px-card py-2" href="profile.php">
                         <div class="d-flex align-items-center">
                           <div class="avatar avatar-l me-2">
                             <img class="rounded-circle" src="../assets/img/team/3.jpg" alt="" />
