@@ -118,9 +118,9 @@ require_once "../includes/connect.php";
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="chat.html" role="button" aria-expanded="false">
-                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-comments">
-                    </span></span><span class="nav-link-text ps-1">Chat</span></div>
+                  <a class="nav-link" href="products.php" role="button" aria-expanded="false">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-burn">
+                    </span></span><span class="nav-link-text ps-1">Products</span></div>
                   </a>
                 </li>
 
@@ -1065,7 +1065,7 @@ require_once "../includes/connect.php";
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col">
               <div class="card h-lg-100 overflow-hidden">
@@ -1267,6 +1267,7 @@ require_once "../includes/connect.php";
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
+  
     <script src="../vendors/popper/popper.min.js"></script>
     <script src="../vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../vendors/anchorjs/anchor.min.js"></script>

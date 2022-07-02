@@ -43,9 +43,7 @@ require_once "../includes/connect.php";
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="../vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
-    <link href="../assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
     <link href="../assets/css/theme.min.css" rel="stylesheet" id="style-default">
-    <link href="../assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="../assets/css/user.min.css" rel="stylesheet" id="user-style-default">
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
@@ -122,9 +120,9 @@ require_once "../includes/connect.php";
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="chat.html" role="button" aria-expanded="false">
-                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-comments">
-                    </span></span><span class="nav-link-text ps-1">Chat</span></div>
+                  <a class="nav-link" href="products.php" role="button" aria-expanded="false">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-burn">
+                    </span></span><span class="nav-link-text ps-1">Products</span></div>
                   </a>
                 </li>
 

@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
   <head>
@@ -9,8 +16,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Vendor | Push Schedule</title>
-
+    <title>Vendor | Dashboard</title>
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
@@ -83,7 +89,6 @@
             <div class="navbar-vertical-content scrollbar">
               <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
                 
-                
                 <!---------------------------------------- START OF REVISED NAVBAR CONTENT------------------------------------------>
 
 
@@ -95,7 +100,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link active" href="push-sched.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="push-sched.html" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day">             
                     </span></span><span class="nav-link-text ps-1">Push Schedule</span></div>
                   </a>
@@ -109,12 +114,11 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="products.php" role="button" aria-expanded="false">
+                  <a class="nav-link active" href="products.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-burn">
                     </span></span><span class="nav-link-text ps-1">Products</span></div>
                   </a>
                 </li>
-
 
                 <li class="nav-item">
                   <a class="nav-link" href="clients.php" role="button" aria-expanded="false">
@@ -122,7 +126,6 @@
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
                   </a>
                 </li>
-
             </div>
           </div>
         </nav>
@@ -260,7 +263,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                              <p class="mb-1"><strong>Brian Galang</strong> replied to your comment : "Hello world 😍"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
                             </div>
                           </a>
@@ -273,7 +276,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
+                              <p class="mb-1"><strong>Jeffrey Canlas</strong> reacted to <strong>Ilah Zamora's</strong> status</p>
                               <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
                             </div>
                           </a>
@@ -287,7 +290,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
+                              <p class="mb-1">The forecast today shows a low of 20&#8451; in Philippines. See today's weather.</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🌤️</span>1d</span>
                             </div>
                           </a>
@@ -300,7 +303,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
+                              <p class="mb-1"><strong>City College of Angeles</strong> created an event : "Causal Inference Hilary 2019"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">✌️</span>1w</span>
                             </div>
                           </a>
@@ -313,7 +316,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
+                              <p class="mb-1"><strong>Elthon Cayetano</strong> invited to join the group: United Nations International Children's Fund</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🙋‍</span>2d</span>
                             </div>
                           </a>
@@ -335,7 +338,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="profile.php">Profile &amp; account</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
+                    <a class="dropdown-item" href="./settings.php">Settings</a>
                     <a class="dropdown-item" href="../logout.php">Logout</a>
                   </div>
                 </div>
@@ -365,62 +368,19 @@
               navbarTopCombo.remove(navbarTopCombo);
             }
           </script>
-       <!-- Start of Calendar-->
-          <div class="card mb-3 overflow-hidden">
-            <div class="card-header">
-              <div class="row gx-0 align-items-center">
-                <div class="col-auto d-flex justify-content-end order-md-1"><button class="btn icon-item icon-item-sm shadow-none p-0 me-1 ms-md-2" type="button" data-event="prev" data-bs-toggle="tooltip" title="Previous"><span class="fas fa-arrow-left"></span></button><button class="btn icon-item icon-item-sm shadow-none p-0 me-1 me-lg-2" type="button" data-event="next" data-bs-toggle="tooltip" title="Next"><span class="fas fa-arrow-right"></span></button></div>
-                <div class="col-auto col-md-auto order-md-2">
-                  <h4 class="mb-0 fs-0 fs-sm-1 fs-lg-2 calendar-title"></h4>
-                </div>
-                <div class="col col-md-auto d-flex justify-content-end order-md-3"><button class="btn btn-falcon-primary btn-sm" type="button" data-event="today">Today</button></div>
-                <div class="col-md-auto d-md-none">
-                  <hr />
-                </div>
-                <div class="col d-flex justify-content-end order-md-2">
-                  <div class="dropdown font-sans-serif me-md-2"><button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="email-filter" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span data-view-title="data-view-title">Month View</span><span class="fas fa-sort ms-2 fs--1"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-filter"><a class="active dropdown-item d-flex justify-content-between" href="#!" data-fc-view="dayGridMonth">Month View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="timeGridWeek">Week View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="timeGridDay">Day View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="listWeek">List View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="listYear">Year View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-body p-0">
-              <div class="calendar-outline" id="appCalendar"></div>
-            </div>
-          </div>
-        <!-- End of Calendar-->  
-          <!----------------------------------------- START OF FOOTER--------------------------------------------->
-          <footer class="footer">
-            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">Thank you for using Reservoir <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy;</p>
-              </div>
-            </div>
-          </footer>
-          <!----------------------------------------- END OF FOOTER--------------------------------------------->
-        </div>
-      </div>
-    </main>
-    <!-- ===============================================-->
-    <!--    End of Main Content-->
-    <!-- ===============================================-->
 
-
-    <!-- ===============================================-->
-    <!--    JavaScripts-->
-    <!-- ===============================================-->
     <script src="../vendors/popper/popper.min.js"></script>
     <script src="../vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../vendors/anchorjs/anchor.min.js"></script>
     <script src="../vendors/is/is.min.js"></script>
-    <script src="../vendors/fullcalendar/main.min.js"></script>
-    <script src="../assets/js/flatpickr.js"></script>
+    <script src="../vendors/chart/chart.min.js"></script>
+    <script src="../vendors/countup/countUp.umd.js"></script>
+    <script src="../vendors/echarts/echarts.min.js"></script>
     <script src="../vendors/dayjs/dayjs.min.js"></script>
     <script src="../vendors/fontawesome/all.min.js"></script>
     <script src="../vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../vendors/list.js/list.min.js"></script>
-    <script src="../assets/js/theme.js"></script>
-  </body>
-
+    <script src="../assets/js/theme.js "></script>
+</body>
 </html>
