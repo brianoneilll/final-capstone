@@ -4,7 +4,7 @@ $customers = array(
     array ("Elthon Jon Cayetano", "Push", "Thursday", 2, "Sapangbato", 13),
     array ("Brian Oniel Galang", "Pull", "Friday", 4, "Lourdes Sur East", 3),
     array ("Bhrandel John Perez", "Pull", "Saturday", 6, "San Jose", 2),
-    array ("Ilah Zamora", "Pull", "Saturday", 5, "Lourdes Sur", 3)
+    array ("Ilah Zamora", "Pull", "Saturday", 5, "Lourdes Sur", 3),
 
     array ("Ernesto Avellana", "Push", "Wednesday", 3, "Pandan", 4),
     array ("Harwin Mendoza", "Push", "Thursday", 2, "Anunas", 7),
