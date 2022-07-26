@@ -4,7 +4,7 @@ session_start();
  
 // Include config file
 require_once "../includes/connect.php";
- 
+
 ?>
 
 <!DOCTYPE html>
@@ -106,14 +106,14 @@ require_once "../includes/connect.php";
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="push-sched.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="push-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day">             
                     </span></span><span class="nav-link-text ps-1">Push Schedule</span></div>
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="order-list.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="pull-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bell">    
                     </span></span><span class="nav-link-text ps-1">Pull Orders</span></div>
                   </a>
@@ -385,9 +385,8 @@ require_once "../includes/connect.php";
               <div class="row">
                 <div class="col-lg-8">
                   <h4 class="mb-1">
-                  <?= $_SESSION['Names']; ?>
-                    
-                <span data-bs-toggle="tooltip" data-bs-placement="right" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small>
+                  <?= $_SESSION['username']; ?>     
+              <span data-bs-toggle="tooltip" data-bs-placement="right" title="Verified"><small class="fa fa-check-circle text-primary" data-fa-transform="shrink-4 down-2"></small>
 
               </span></h4>
                   <h5 class="fs-0 fw-normal">Angeles, Pampanga</h5>
@@ -412,14 +411,51 @@ require_once "../includes/connect.php";
                       <div class="col-5 col-sm-4">
                         <p class="fw-semi-bold mb-1">Created</p>
                       </div>
-                      <div class="col">2022/01/12 23:13</div>
+                      <div class="col">
+                      <?php
+                        $dbServername = "localhost";
+                        $dbUsername = "root";
+                        $dbPassword = "";
+                        $dbName = "reservoir";
+
+                        $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
+
+                        // Check connection
+                        if($conn === false){
+                        die("ERROR: Could not connect. " . mysqli_connect_error());
+                        }
+                        
+                        //fetch data
+                        $current = $_SESSION['username'];
+                        $query = "SELECT * FROM vendor where username = '$current';";
+                        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+                        $row = mysqli_fetch_array($result);
+
+                          $created=$row['created_at'];  
+                          echo $created;    
+            
+                      ?>
+
+                    </div>
                     </div>  
                     <div class="row">
                       <div class="col-5 col-sm-4">
                         <p class="fw-semi-bold mb-1">Description</p>
                       </div>
                       <div class="col">
-                        <p class="fst-italic text-400 mb-1">No Description</p>
+                      <?php
+                        //fetch data
+                        $current = $_SESSION['username'];
+                        $query = "SELECT * FROM vendor where username = '$current';";
+                        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+                        $row = mysqli_fetch_array($result);
+
+                          $descriptions=$row['dc'];  
+                          echo $descriptions;    
+            
+                      ?>
                       </div>
                     </div>
                   </div>
@@ -430,14 +466,37 @@ require_once "../includes/connect.php";
                         <p class="fw-semi-bold mb-1">Address</p>
                       </div>
                       <div class="col">
-                        <p class="mb-1">Doña Aurora St. <br />Lourdes Sur East, Angeles City 2009</p>
+                      <?php
+                        //fetch data
+                        $current = $_SESSION['username'];
+                        $query = "SELECT * FROM vendor where username = '$current';";
+                        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+                        $row = mysqli_fetch_array($result);
+
+                          $address=$row['storeadd'];  
+                          echo $address;    
+            
+                      ?>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-5 col-sm-4">
                         <p class="fw-semi-bold mb-1">Phone number</p>
                       </div>
-                      <div class="col"><a href="tel:+12025550110">+63 948-685-1842</a></div>
+                      <div class="col">                      
+                      <?php  
+                      //fetch data
+                        $current = $_SESSION['username'];
+                        $query = "SELECT * FROM vendor where username = '$current';";
+                        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+                        $row = mysqli_fetch_array($result);
+
+                          $phone=$row['phone'];  
+                          echo $phone;    
+            
+                      ?></div>
                     </div>
                   </div>
                 </div>

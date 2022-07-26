@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($phone_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, phone_number, pass FROM customer WHERE phone_number = ?";
+        $sql = "SELECT cust_id, phone_number, pass FROM customer WHERE phone_number = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters

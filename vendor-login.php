@@ -11,7 +11,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "includes/connect.php";
  
 // Define variables and initialize with empty values
-$username = $password = $Name = "";
+$username = $password  = "";
 $username_err = $password_err = $login_err = "";
  
 // Processing form data when form is submitted
@@ -24,6 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username = trim($_POST["username"]);
     }
     
+
     // Check if password is empty
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter your password.";
@@ -34,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM vendor WHERE username = ?";
+        $sql = "SELECT vendor_id, username, password FROM vendor WHERE username = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -61,6 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;  
+                            $_SESSION["storename"] = $storename;
                         
                             
                             // Redirect user to welcome page
@@ -153,7 +155,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                           <h3>Vendor Login</h3>
                         </div>
                       </div>
-
                       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                           <div class="form-group">
                               <label>Username</label>

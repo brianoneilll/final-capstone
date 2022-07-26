@@ -168,14 +168,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="push-sched.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="push-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day">             
                     </span></span><span class="nav-link-text ps-1">Push Schedule</span></div>
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="order-list.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="pull-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bell">    
                     </span></span><span class="nav-link-text ps-1">Pull Orders</span></div>
                   </a>
@@ -405,7 +405,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   <div class="bg-white dark__bg-1000 rounded-2 py-2">
                     <a class="dropdown-item fw-bold text-warning" href="#!"><span class="fas fa-crown me-1"></span><span>Go Pro</span></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="profile.html">Profile &amp; account</a>
+                    <a class="dropdown-item" href="profile.php">Profile &amp; account</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="settings.html">Settings</a> 
                     <a class="dropdown-item" href="../logout.php">Logout</a>

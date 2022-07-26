@@ -1,3 +1,13 @@
+<?php
+// Initialize the session
+session_start();
+ 
+
+ 
+// Include config file
+require_once "../includes/connect.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -9,8 +19,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Vendor | Push Schedule</title>
-
+    <title>Vendor | Pull Orders</title>
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
@@ -83,26 +92,24 @@
             <div class="navbar-vertical-content scrollbar">
               <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
                 
-                
                 <!---------------------------------------- START OF REVISED NAVBAR CONTENT------------------------------------------>
 
-
                 <li class="nav-item">
-                  <a class="nav-link" href="vendor-dashboard.php" aria-expanded="false">
+                  <a class="nav-link" href="vendor-dashboard.PHP" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie">
                     </span></span><span class="nav-link-text ps-1">Dashboard</span></div>
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link active" href="push-sched.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="push-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day">             
                     </span></span><span class="nav-link-text ps-1">Push Schedule</span></div>
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="order-list.html" role="button" aria-expanded="false">
+                  <a class="nav-link active" href="pull-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bell">    
                     </span></span><span class="nav-link-text ps-1">Pull Orders</span></div>
                   </a>
@@ -115,14 +122,12 @@
                   </a>
                 </li>
 
-
                 <li class="nav-item">
                   <a class="nav-link" href="clients.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users">
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
                   </a>
                 </li>
-
             </div>
           </div>
         </nav>
@@ -260,7 +265,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                              <p class="mb-1"><strong>Brian Galang</strong> replied to your comment : "Hello world 😍"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
                             </div>
                           </a>
@@ -273,7 +278,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
+                              <p class="mb-1"><strong>Jeffrey Canlas</strong> reacted to <strong>Ilah Zamora's</strong> status</p>
                               <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
                             </div>
                           </a>
@@ -287,7 +292,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
+                              <p class="mb-1">The forecast today shows a low of 20&#8451; in Philippines. See today's weather.</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🌤️</span>1d</span>
                             </div>
                           </a>
@@ -300,7 +305,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
+                              <p class="mb-1"><strong>City College of Angeles</strong> created an event : "Causal Inference Hilary 2019"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">✌️</span>1w</span>
                             </div>
                           </a>
@@ -313,7 +318,7 @@
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
+                              <p class="mb-1"><strong>Elthon Cayetano</strong> invited to join the group: United Nations International Children's Fund</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🙋‍</span>2d</span>
                             </div>
                           </a>
@@ -365,47 +370,129 @@
               navbarTopCombo.remove(navbarTopCombo);
             }
           </script>
-       <!-- Start of Calendar-->
-          <div class="card mb-3 overflow-hidden">
+          <!-----------------------------------START OF MAIN CONTENT------------------------------------>
+
+          <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["first_name","last_name","phone","street","barangay","city","province"],"page":10,"pagination":true}'>
             <div class="card-header">
-              <div class="row gx-0 align-items-center">
-                <div class="col-auto d-flex justify-content-end order-md-1"><button class="btn icon-item icon-item-sm shadow-none p-0 me-1 ms-md-2" type="button" data-event="prev" data-bs-toggle="tooltip" title="Previous"><span class="fas fa-arrow-left"></span></button><button class="btn icon-item icon-item-sm shadow-none p-0 me-1 me-lg-2" type="button" data-event="next" data-bs-toggle="tooltip" title="Next"><span class="fas fa-arrow-right"></span></button></div>
-                <div class="col-auto col-md-auto order-md-2">
-                  <h4 class="mb-0 fs-0 fs-sm-1 fs-lg-2 calendar-title"></h4>
+              <div class="row flex-between-center">
+                <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
+                  <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Pull Orders</h5>
                 </div>
-                <div class="col col-md-auto d-flex justify-content-end order-md-3"><button class="btn btn-falcon-primary btn-sm" type="button" data-event="today">Today</button></div>
-                <div class="col-md-auto d-md-none">
-                  <hr />
+                <div class="col-8 col-sm-auto ms-auto text-end ps-0">
+                  <div class="d-none" id="orders-bulk-actions">
+                    <div class="d-flex">
+                    <form action="" method ="POST">
+                      <select name ="options"class="form-select form-select-sm" aria-label="Bulk actions">
+                        <option selected="">Bulk actions</option>
+                        <option value="Refund">View</option>
+                        <option value="Archive">Edit</option>
+                        <option value="Delete">Delete</option>
+
+                      </select><button class="btn btn-falcon-default btn-sm ms-2" type="button" name="apply">Apply</button></div>
+                      </form>
+
+
+
+
+                  </div>
+                  <div id="orders-actions">
+                    <a href="./cust_pull_add.php"><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">New</span></button></a>
+
+                  <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Filter</span></button>
+
+                  <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Export</span></button></div>
                 </div>
-                <div class="col d-flex justify-content-end order-md-2">
-                  <div class="dropdown font-sans-serif me-md-2"><button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="email-filter" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span data-view-title="data-view-title">Month View</span><span class="fas fa-sort ms-2 fs--1"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-filter"><a class="active dropdown-item d-flex justify-content-between" href="#!" data-fc-view="dayGridMonth">Month View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="timeGridWeek">Week View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="timeGridDay">Day View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="listWeek">List View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="listYear">Year View<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a></div>
+              </div>
+            </div>
+            <div class="card-body pt-0">  
+              <div class="tab-content">
+                <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8" id="dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8">
+                  <div id="tableExample" data-list='{"valueNames":["First Name","Last Name","Phone Number", "Street", "Barangay", "City", "Province"],"page":5,"pagination":true}'>
+                    <div class="table-responsive scrollbar">
+                      <table class="table table-bordered table-striped fs--1 mb-0">
+                        <thead class="bg-200 text-900">
+                          <tr>
+                            <th>
+                              <div class="form-check fs-0 mb-0 d-flex align-items-center"><input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-orders-body","actions":"orders-bulk-actions","replacedElement":"orders-actions"}' /></div>
+                            </th>
+                            
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="first_name">First Name</th>
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="last_name">Last Name</th>
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone Number</th>
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="street">Street</th>
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="barangay">Barangay</th>
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="city">City</th>
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="province">Province</th>
+                              <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">Status</th>
+                              <th class="no-sort"></th>
+
+                              
+                          </tr>
+                        </thead>
+                        <tbody class="list" id="table-orders-body">
+                          <tr class="btn-reveal-trigger">
+                            <?php                  
+                              $query = 'SELECT * FROM customer';//WHERE Vendor_ID AND Order_ID = 'variable';
+                              $result = mysqli_query($conn, $query) or die (mysqli_error($conn));
+                
+                              while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr class="btn-reveal-trigger">';
+                                echo '<td class="align-middle" style="width: 28px;">';
+                                echo '<div class="form-check fs-0 mb-0 d-flex align-items-center"><input class="form-check-input" type="checkbox" id="checkbox-0" data-bulk-select-row="data-bulk-select-row" /></div>';
+                                  echo '<td class="fname">'. $row['first_name'].'</td>';
+                                  echo '<td class="lname">'. $row['last_name'].'</td>';
+                                  echo '<td>'. $row['phone_number'].'</td>';
+                                  echo '<td class = "street">'. $row['street'].'</td>';
+                                  echo '<td class = "barangay">'. $row['barangay'].'</td>';
+                                  echo '<td class = "city">'. $row['city'].'</td>';
+                                  echo '<td class = "province">'. $row['province'].'</td>';
+                                  echo '<td></td>';
+                                  echo '<td class="py-2 align-middle white-space-nowrap text-end">';
+
+                                  echo '<div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>';
+                                  echo '<div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">';
+                                  echo '<div class="bg-white py-2">
+                                  <a id = "completed" class="dropdown-item" href="#!">Completed</a>
+                                  <a class="dropdown-item" href="#!">Processing</a>
+                                  <a class="dropdown-item" href="#!">On Hold</a>
+                                  <a class="dropdown-item" href="#!">Pending</a>';
+                                  echo '<div class="dropdown-divider"></div>
+                                  <a class="dropdown-item text-danger" href="#!">Delete</a>';
+                                  echo '</div>';
+                                  echo '</div>';
+                                  echo '</div>';
+                                    '</td>';
+                                  echo '</tr> ';  
+                                  }
+                                  '</td>';
+                              '</tr>';
+                              
+                            ?>
+                          
+                            <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-warning">Pending<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span></td>
+                            <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-secondary">On Hold<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span></td>
+                            <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-primary">Processing<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span></td>
+                            <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span id ="completed2" class="badge badge rounded-pill d-block badge-soft-success">Completed<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span></td>
+                        </tbody>
+                      </table>
+
+                    </div>                 
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card-body p-0">
-              <div class="calendar-outline" id="appCalendar"></div>
-            </div>
           </div>
-        <!-- End of Calendar-->  
-          <!----------------------------------------- START OF FOOTER--------------------------------------------->
           <footer class="footer">
-            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
+            <div class="row g-0 justify-content-between fs--1 mt-4 mb-0" style="margin-left: 50px">
               <div class="col-12 col-sm-auto text-center">
                 <p class="mb-0 text-600">Thank you for using Reservoir <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy;</p>
               </div>
             </div>
           </footer>
-          <!----------------------------------------- END OF FOOTER--------------------------------------------->
-        </div>
-      </div>
     </main>
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
-
-
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
@@ -413,14 +500,12 @@
     <script src="../vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../vendors/anchorjs/anchor.min.js"></script>
     <script src="../vendors/is/is.min.js"></script>
-    <script src="../vendors/fullcalendar/main.min.js"></script>
-    <script src="../assets/js/flatpickr.js"></script>
-    <script src="../vendors/dayjs/dayjs.min.js"></script>
     <script src="../vendors/fontawesome/all.min.js"></script>
     <script src="../vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
+    <script src="../vendors/list.js/list.min.js"></script>
   </body>
 
 </html>

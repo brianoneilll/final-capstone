@@ -2,8 +2,6 @@
 // Initialize the session
 session_start();
  
-
- 
 // Include config file
 require_once "../includes/connect.php";
 
@@ -20,17 +18,17 @@ require_once "../includes/connect.php";
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Vendor | Clients</title>
+    <title>Vendor | Push Schedule</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="/LoginSignup[Brian]/resources/reservoir 200x200.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/LoginSignup[Brian]/resources/reservoir 200x200.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/LoginSignup[Brian]/resources/reservoir 200x200.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/LoginSignup[Brian]/resources/reservoir 200x200.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/reservoir.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/reservoir.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/reservoir.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/reservoir.png">
     <link rel="manifest" href="../assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileImage" content="../assets/img/favicons/mstile-150x150.png">
+    <meta name="msapplication-TileImage" content="../assets/img/reservoir.png">
     <meta name="theme-color" content="#ffffff">
     <script src="../assets/js/config.js"></script>
     <script src="../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
@@ -106,7 +104,7 @@ require_once "../includes/connect.php";
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="push-sched.php" role="button" aria-expanded="false">
+                  <a class="nav-link active" href="push-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day">             
                     </span></span><span class="nav-link-text ps-1">Push Schedule</span></div>
                   </a>
@@ -126,8 +124,9 @@ require_once "../includes/connect.php";
                   </a>
                 </li>
 
+
                 <li class="nav-item">
-                  <a class="nav-link active" href="clients.php" role="button" aria-expanded="false">
+                  <a class="nav-link" href="clients.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users">
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
                   </a>
@@ -142,8 +141,8 @@ require_once "../includes/connect.php";
         </nav>
         <div class="content">
           <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand" style="display: none;">
-             <!--START OF SEARCH BAR-->
-             <ul class="navbar-nav align-items-center d-none d-lg-block">
+          <!--START OF SEARCH BAR-->
+            <ul class="navbar-nav align-items-center d-none d-lg-block">
               <li class="nav-item">
                 <div class="search-box" data-list='{"valueNames":["title"]}'>
                   <form class="position-relative" data-bs-toggle="search" data-bs-display="static"><input class="form-control search-input fuzzy-search" type="search" placeholder="Search..." aria-label="Search" />
@@ -375,63 +374,96 @@ require_once "../includes/connect.php";
               navbarTopCombo.remove(navbarTopCombo);
             }
           </script>
-          <!-------------------------------------------- START OF ONTENT-------------------------------------------->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h4 class="m-2 font-weight-bold text-primary">Customer&nbsp;<a  href="#" data-toggle="modal" data-target="#customerModal" type="button" class="btn btn-primary bg-gradient-primary" style="border-radius: 0px;"><i class="fas fa-fw fa-plus"></i></a></h4>
+
+       <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["first_name","last_name","phone","street","barangay","city","province"],"page":10,"pagination":true}'>
+            <div class="card-header">
+              <div class="row flex-between-center">
+                <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
+                  <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Push Orders</h5>
+                </div>
+                <div class="col-8 col-sm-auto ms-auto text-end ps-0">
+                  <div class="d-none" id="orders-bulk-actions">
+                    <div class="d-flex"><select class="form-select form-select-sm" aria-label="Bulk actions">
+                        <option selected="">Bulk actions</option>
+                        <option value="Refund">Refund</option>
+                        <option value="Delete">Delete</option>
+                        <option value="Archive">Archive</option>
+                      </select><button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button></div>
+                  </div>
+                  <div id="orders-actions"><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">New</span></button><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Filter</span></button><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Export</span></button></div>
+                </div>
+              </div>
             </div>
-          <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">        
-                  <thead>
-                      <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Phone Number</th>
-                        <th>Street</th>
-                        <th>Barangay</th>
-                        <th>City</th>
-                        <th>Province</th>
+            <div class="card-body p-0">
+              <div class="table-responsive scrollbar">
+                <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+                  <thead class="bg-200 text-900">
+                      <th>
+                        <div class="form-check fs-0 mb-0 d-flex align-items-center"><input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-orders-body","actions":"orders-bulk-actions","replacedElement":"orders-actions"}' /></div>
+                      </th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="first_name">First Name</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="last_name">Last Name</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone Number</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="street">Street</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="barangay">Barangay</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="city">City</th>
+                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="province">Province</th>
+                        <th class="no-sort"></th>
                       </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="list" id="table-orders-body">
+                  <tr class="btn-reveal-trigger">
                     <?php                  
-                      $query = 'SELECT * FROM customer';
+                      $query = 'SELECT * FROM customer';//WHERE Vendor_ID AND Order_ID = 'variable';
                       $result = mysqli_query($conn, $query) or die (mysqli_error($conn));
         
                       while ($row = mysqli_fetch_assoc($result)) {
-                      echo '<tr>';
-                      echo '<td>'. $row['first_name'].'</td>';
-                      echo '<td>'. $row['last_name'].'</td>';
-                      echo '<td>'. $row['phone_number'].'</td>';
-                      echo '<td>'. $row['street'].'</td>';
-                      echo '<td>'. $row['barangay'].'</td>';
-                      echo '<td>'. $row['city'].'</td>';
-                      echo '<td>'. $row['province'].'</td>';
-                      echo '</tr> ';
-                      }
+                        echo '<tr class="btn-reveal-trigger">';
+                        echo '<td class="align-middle" style="width: 28px;">';
+                        echo '<div class="form-check fs-0 mb-0 d-flex align-items-center"><input class="form-check-input" type="checkbox" id="checkbox-0" data-bulk-select-row="data-bulk-select-row" /></div>';
+                          echo '<td>'. $row['first_name'].'</td>';
+                          echo '<td>'. $row['last_name'].'</td>';
+                          echo '<td>'. $row['phone_number'].'</td>';
+                          echo '<td>'. $row['street'].'</td>';
+                          echo '<td>'. $row['barangay'].'</td>';
+                          echo '<td>'. $row['city'].'</td>';
+                          echo '<td>'. $row['province'].'</td>';
+                          echo '<td class="py-2 align-middle white-space-nowrap text-end">';
+                          echo '<div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>';
+                          echo '<div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">';
+                          echo '<div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>';
+                          echo '<div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>';
+                          echo '</div>';
+                          echo '</div>';
+                          echo '</div>';
+                            '</td>';
+                          echo '</tr> ';  
+                          }
+                          '</td>';
+                      '</tr>';
+
                     ?>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-
-          <!----------------------------------------- START OF FOOTER--------------------------------------------->
-          <footer class="footer">
-            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
+        </div>
+      </div>
+      
+            <footer class="footer">
+            <div class="row g-0 justify-content-between fs--1 mt-4 mb-0" style="margin-left: 50px">
               <div class="col-12 col-sm-auto text-center">
                 <p class="mb-0 text-600">Thank you for using Reservoir <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy;</p>
               </div>
             </div>
           </footer>
-          <!----------------------------------------- END OF FOOTER--------------------------------------------->
-        </div>
-      </div>
     </main>
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
+
+
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
@@ -439,12 +471,15 @@ require_once "../includes/connect.php";
     <script src="../vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../vendors/anchorjs/anchor.min.js"></script>
     <script src="../vendors/is/is.min.js"></script>
+    <script src="../vendors/fullcalendar/main.min.js"></script>
+    <script src="../assets/js/flatpickr.js"></script>
+    <script src="../vendors/dayjs/dayjs.min.js"></script>
     <script src="../vendors/fontawesome/all.min.js"></script>
     <script src="../vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
-    <script src="../vendors/list.js/list.min.js"></script>
   </body>
 
 </html>
+

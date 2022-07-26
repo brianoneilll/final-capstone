@@ -104,14 +104,14 @@ require_once "../includes/connect.php";
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="push-sched.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="push-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day">             
                     </span></span><span class="nav-link-text ps-1">Push Schedule</span></div>
                   </a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="order-list.html" role="button" aria-expanded="false">
+                  <a class="nav-link" href="pull-sched.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bell">    
                     </span></span><span class="nav-link-text ps-1">Pull Orders</span></div>
                   </a>
@@ -389,10 +389,6 @@ require_once "../includes/connect.php";
                           <p>Here’s what happening with your store today </p>
                         </div>
                         <div class="d-flex py-3">
-                          <div class="pe-3">
-                            <p class="text-600 fs--1 fw-medium">Today's visit </p>
-                            <h4 class="text-800 mb-0">14,209</h4>
-                          </div>
                           <div class="ps-3">
                             <p class="text-600 fs--1">Today’s total sales </p>
                             <h4 class="text-800 mb-0">$21,349.29 </h4>
