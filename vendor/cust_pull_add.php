@@ -39,7 +39,7 @@ require_once "../includes/connect.php";
             <a href="./pull-sched.php" class="btn btn-danger float-right">Back</a></h4>
           </div>
           <div class="card-body">
-            <form action="./cust_pull_add_config.php" method="POST">
+            <form action="./customer-pull-config.php" method="POST">
 
               <div class="mb-3">
                 <label>First Name</label>
