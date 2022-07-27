@@ -582,7 +582,7 @@ require_once "../includes/connect.php";
                       
                     <div class="btn-group btn-group-justified" role="group" aria-label="...">
                       <div class="btn-group" role="group">
-                        <button type="button" value="<?= $row['cust_id'];?>" class="viewCustomerBtn btn btn-outline-success btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">View</a>
+                        <button type="button" value="<?= $row['cust_id'];?>" class="viewCustomerBtn btn btn-outline-primary btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">View</a>
                       </div>
                       <div class="btn-group" role="group">
                         <button type="button" value="<?= $row['cust_id'];?>" class="editCustomerBtn btn btn-outline-info btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">Edit</a>
