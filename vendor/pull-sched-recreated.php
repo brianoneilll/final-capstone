@@ -376,87 +376,78 @@ require_once "../includes/connect.php";
             }
           </script>
           <!-----------------------------------START OF MAIN CONTENT------------------------------------>
-  <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["first_name","last_name","phone","street","barangay","city","province"],"page":10,"pagination":true}'>
-    <div class="card-header">
-      <?php include ('./customer-add-alert.php');?>
-      <div class="row flex-between-center">
-        <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-          <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Pull Orders</h5>
-        </div>
-        <div class="col-4 col-sm-2 d-flex align pe-0 mb-3 ml-2">
-          <a href ="./cust_pull_add.php" class="btn btn-outline-primary btn-sm">Add Customer</a>
-        </div>
-      </div>
-      <div class="tab-content">
-        <?php include('customer-add-alert.php')?>
-        <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8" id="dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8">
-          <div class="table-responsive scrollbar">
-            <table class="table table-bordered table-striped fs--1 mb-0">
-              <thead class="bg-200 text-900">
-                
-                <tr>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="first_name">ID</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="first_name">First Name</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="last_name">Last Name</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone Number</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="street">Street</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="barangay">Barangay</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="city">City</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="province">Province</th>
-                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">Actions</th>
-                </tr>
-              </thead>
-              <tbody class="list" id="table-orders-body">
-                <tr class="btn-reveal-trigger">  
-                  <?php
-                    $sql = "SELECT * FROM customer";
-                    $result = mysqli_query($conn, $sql);
-                    while($row=mysqli_fetch_array($result)){   
-                  ?>
-                  <tr>
-                    <td><?= $row['cust_id']; ?></td>
-                    <td><?= $row['first_name']; ?></td>
-                    <td><?= $row['last_name']; ?></td>
-                    <td><?= $row['phone_number']; ?></td>
-                    <td><?= $row['street']; ?></td>
-                    <td><?= $row['barangay']; ?></td>
-                    <td><?= $row['city']; ?></td>
-                    <td><?= $row['province']; ?></td>
-                    <td>
-                      
-                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <a href="./customer-pull-view.php?id=<?= $row['cust_id']; ?>" class="btn btn-outline-success btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">View</a>
-                      </div>
-                      <div class="btn-group" role="group">
-                        <a href="./customer-pull-edit.php?id=<?= $row['cust_id']; ?>" class="btn btn-outline-info btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">Edit</a>
-                      </div>
-                      <form action="./customer-pull-config.php" method="POST">
-                      <div class="btn-group" role="group">
-                        <button type="submit" name ="delete_customer" value="<?= $row['cust_id'];?>"class="btn btn-outline-danger btn-sm"style="display:inline-block;vertical-align:middle; float:left;">Delete</a>
-                      </div>
-                      </form>
-                    </td>
-                  </tr>
-                </tr>
-                <?php } ?>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+          <?php
+        if(isset($_POST['submit'])){
+            if(isset($_POST['id'])){
+                foreach($_POST['id'] as $id){
+                    $query="DELETE from customer WHERE cust_id='$id'";
+                    mysqli_query($conn,$query);
+                }
+            }
+        }
+        $sql = "SELECT * FROM customer";
+        $result = mysqli_query($conn, $sql);
+        
+    ?>
 
-    </div>
-    <footer class="footer">
-      <div class="row g-0 justify-content-between fs--1 mt-4 mb-0" style="margin-left: 50px">
-        <div class="col-12 col-sm-auto text-center">
-          <p class="mb-0 text-600">Thank you for using Reservoir <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy;</p>
+    <form action="./customer-pull-config.php" method="POST">
+        <div class="container">
+            <div class="row-justify-content-center mt-2">
+                <div class="col-md-12 bg-light rounded p-3">
+                    <h2 class="text-center">heading</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <td>
+                                    <input type="submit" name="delete" id ="btnEdit" value="Delete" onclick="return confirm('are u sure u want to delete')" class="btn btn-danger">
+                                </td>
+                            </tr>
+                        <tr>
+                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>id</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Phone</th>
+                            <th>Street</th>
+                            <th>Barangay</th>
+                            <th>City</th>
+                            <th>Province</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                while($row=mysqli_fetch_array($result)){
+
+                                
+                            ?>
+                        <tr>
+                            <td><input type="checkbox" class="checkItem" value="<?= $row['cust_id']?>" name ="id[]"></td>
+                            <td><?= $row['cust_id']; ?></td>
+                            <td><?= $row['first_name']; ?></td>
+                            <td><?= $row['last_name']; ?></td>
+                            <td><?= $row['phone_number']; ?></td>
+                            <td><?= $row['street']; ?></td>
+                            <td><?= $row['barangay']; ?></td>
+                            <td><?= $row['city']; ?></td>
+                            <td><?= $row['province']; ?></td>
+                        </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>                
+            </div>
         </div>
-      </div>
-    </footer>
+    </form>
+    
+          <footer class="footer">
+            <div class="row g-0 justify-content-between fs--1 mt-4 mb-0" style="margin-left: 50px">
+              <div class="col-12 col-sm-auto text-center">
+                <p class="mb-0 text-600">Thank you for using Reservoir <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy;</p>
+              </div>
+            </div>
+          </footer>
     </main>
-
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
