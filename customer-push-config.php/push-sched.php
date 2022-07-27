@@ -2,11 +2,12 @@
 // Initialize the session
 session_start();
  
+
+ 
 // Include config file
 require_once "../includes/connect.php";
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -18,8 +19,7 @@ require_once "../includes/connect.php";
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Vendor | Push Schedule</title>
-
+    <title>Vendor | Pull Orders</title>
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
@@ -43,6 +43,14 @@ require_once "../includes/connect.php";
     <link href="../vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
     <link href="../assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="../assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    
+    
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -58,9 +66,162 @@ require_once "../includes/connect.php";
         userLinkRTL.setAttribute('disabled', true);
       }
     </script>
+
   </head>
 
   <body>
+
+<!--Add Customer Modal -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id ="saveCustomer" method="POST">
+        <div class="modal-body">
+          <div class="alert">
+              <div id="errorMessage" class="alert alert-warning d-none"></div>
+          </div>
+          <div class="mb-3">
+            <label>First Name</label>
+              <input type="text" name="fname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" name="lname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Phone</label>
+            <input type="text" name="phone" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Street</label>
+            <input type="text" name="street" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Barangay</label>
+            <input type="text" name="barangay" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <input type="text" name="city" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Province</label>
+            <input type="text" name="province" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add Customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Customer Modal -->
+<div class="modal fade" id="customerEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id ="updateCustomer" method="POST">
+        <div class="modal-body">
+          <div class="alert">
+              <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
+              <input type="hidden" name="cust_id" id="cust_id">
+          </div>
+          <div class="mb-3">
+            <label>First Name</label>
+              <input type="text" name="fname" id="fname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" name="lname" id="lname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Phone</label>
+            <input type="text" name="phone" id="phone" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Street</label>
+            <input type="text" name="street" id="street" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Barangay</label>
+            <input type="text" name="barangay" id="barangay" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <input type="text" name="city" id="city" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Province</label>
+            <input type="text" name="province" id="province" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Update Customer</button>
+        </div>
+      </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Customer Modal -->
+<div class="modal fade" id="customerViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label>First Name</label>
+            <p id="view_fname"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Last Name</label>
+            <p id="view_lname"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Phone</label>
+            <p id="view_phone"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Street</label>
+            <p id="view_street"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Barangay</label>
+            <p id="view_barangay"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <p id="view_city"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Province</label>
+            <p id="view_province"class="form-control"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
@@ -92,12 +253,10 @@ require_once "../includes/connect.php";
             <div class="navbar-vertical-content scrollbar">
               <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
                 
-                
                 <!---------------------------------------- START OF REVISED NAVBAR CONTENT------------------------------------------>
 
-
                 <li class="nav-item">
-                  <a class="nav-link" href="vendor-dashboard.php" aria-expanded="false">
+                  <a class="nav-link" href="vendor-dashboard.PHP" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie">
                     </span></span><span class="nav-link-text ps-1">Dashboard</span></div>
                   </a>
@@ -124,14 +283,12 @@ require_once "../includes/connect.php";
                   </a>
                 </li>
 
-
                 <li class="nav-item">
                   <a class="nav-link" href="clients.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users">
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
                   </a>
                 </li>
-
             </div>
           </div>
         </nav>
@@ -269,7 +426,7 @@ require_once "../includes/connect.php";
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                              <p class="mb-1"><strong>Brian Galang</strong> replied to your comment : "Hello world 😍"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
                             </div>
                           </a>
@@ -282,7 +439,7 @@ require_once "../includes/connect.php";
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>Albert Brooks</strong> reacted to <strong>Mia Khalifa's</strong> status</p>
+                              <p class="mb-1"><strong>Jeffrey Canlas</strong> reacted to <strong>Ilah Zamora's</strong> status</p>
                               <span class="notification-time"><span class="me-2 fab fa-gratipay text-danger"></span>9hr</span>
                             </div>
                           </a>
@@ -296,7 +453,7 @@ require_once "../includes/connect.php";
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1">The forecast today shows a low of 20&#8451; in California. See today's weather.</p>
+                              <p class="mb-1">The forecast today shows a low of 20&#8451; in Philippines. See today's weather.</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🌤️</span>1d</span>
                             </div>
                           </a>
@@ -309,7 +466,7 @@ require_once "../includes/connect.php";
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>University of Oxford</strong> created an event : "Causal Inference Hilary 2019"</p>
+                              <p class="mb-1"><strong>City College of Angeles</strong> created an event : "Causal Inference Hilary 2019"</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">✌️</span>1w</span>
                             </div>
                           </a>
@@ -322,7 +479,7 @@ require_once "../includes/connect.php";
                               </div>
                             </div>
                             <div class="notification-body">
-                              <p class="mb-1"><strong>James Cameron</strong> invited to join the group: United Nations International Children's Fund</p>
+                              <p class="mb-1"><strong>Elthon Cayetano</strong> invited to join the group: United Nations International Children's Fund</p>
                               <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">🙋‍</span>2d</span>
                             </div>
                           </a>
@@ -374,112 +531,280 @@ require_once "../includes/connect.php";
               navbarTopCombo.remove(navbarTopCombo);
             }
           </script>
-
-       <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["first_name","last_name","phone","street","barangay","city","province"],"page":10,"pagination":true}'>
-            <div class="card-header">
-              <div class="row flex-between-center">
-                <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                  <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Push Orders</h5>
-                </div>
-                <div class="col-8 col-sm-auto ms-auto text-end ps-0">
-                  <div class="d-none" id="orders-bulk-actions">
-                    <div class="d-flex"><select class="form-select form-select-sm" aria-label="Bulk actions">
-                        <option selected="">Bulk actions</option>
-                        <option value="Refund">Refund</option>
-                        <option value="Delete">Delete</option>
-                        <option value="Archive">Archive</option>
-                      </select><button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button></div>
-                  </div>
-                  <div id="orders-actions"><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">New</span></button><button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Filter</span></button><button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Export</span></button></div>
-                </div>
-              </div>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive scrollbar">
-                <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
-                  <thead class="bg-200 text-900">
-                      <th>
-                        <div class="form-check fs-0 mb-0 d-flex align-items-center"><input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-orders-body","actions":"orders-bulk-actions","replacedElement":"orders-actions"}' /></div>
-                      </th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="first_name">First Name</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="last_name">Last Name</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone Number</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="street">Street</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="barangay">Barangay</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="city">City</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap" data-sort="province">Province</th>
-                        <th class="no-sort"></th>
-                      </tr>
-                  </thead>
-                  <tbody class="list" id="table-orders-body">
-                  <tr class="btn-reveal-trigger">
-                    <?php                  
-                      $query = 'SELECT * FROM customer';//WHERE Vendor_ID AND Order_ID = 'variable';
-                      $result = mysqli_query($conn, $query) or die (mysqli_error($conn));
-        
-                      while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<tr class="btn-reveal-trigger">';
-                        echo '<td class="align-middle" style="width: 28px;">';
-                        echo '<div class="form-check fs-0 mb-0 d-flex align-items-center"><input class="form-check-input" type="checkbox" id="checkbox-0" data-bulk-select-row="data-bulk-select-row" /></div>';
-                          echo '<td>'. $row['first_name'].'</td>';
-                          echo '<td>'. $row['last_name'].'</td>';
-                          echo '<td>'. $row['phone_number'].'</td>';
-                          echo '<td>'. $row['street'].'</td>';
-                          echo '<td>'. $row['barangay'].'</td>';
-                          echo '<td>'. $row['city'].'</td>';
-                          echo '<td>'. $row['province'].'</td>';
-                          echo '<td class="py-2 align-middle white-space-nowrap text-end">';
-                          echo '<div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>';
-                          echo '<div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">';
-                          echo '<div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>';
-                          echo '<div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>';
-                          echo '</div>';
-                          echo '</div>';
-                          echo '</div>';
-                            '</td>';
-                          echo '</tr> ';  
-                          }
-                          '</td>';
-                      '</tr>';
-
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <!-----------------------------------START OF MAIN CONTENT------------------------------------>
+  <div class="card mb-3" id="ordersTable">
+    <div class="card-header">
+      <?php include ('./customer-add-alert.php');?>
+      <div class="row flex-between-center">
+        <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
+          <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Pull Orders</h5>
+        </div>
+        <div class="col-4 col-sm-2 d-flex align pe-0 mb-3 ml-2">
+          <a href ="./cust_pull_add.php" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add Customer</a>
+        </div>
+      </div>
+      <div class="tab-content">
+        <?php include('customer-add-alert.php')?>
+        <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8" id="dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8">
+          <div class="table-responsive scrollbar">
+            <table id ="pull-table" class="table table-bordered table-striped fs--1 mb-0">
+              <thead class="bg-200 text-900">
+                
+                <tr>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="first_name">ID</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="first_name">First Name</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="last_name">Last Name</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone Number</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="street">Street</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="barangay">Barangay</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="city">City</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="province">Province</th>
+                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="list" id="table-orders-body">
+                <tr class="btn-reveal-trigger">  
+                  <?php
+                    $sql = "SELECT * FROM customer";
+                    $result = mysqli_query($conn, $sql);
+                    while($row=mysqli_fetch_array($result)){   
+                  ?>
+                  <tr>
+                    <td><?= $row['cust_id']; ?></td>
+                    <td><?= $row['first_name']; ?></td>
+                    <td><?= $row['last_name']; ?></td>
+                    <td><?= $row['phone_number']; ?></td>
+                    <td><?= $row['street']; ?></td>
+                    <td><?= $row['barangay']; ?></td>
+                    <td><?= $row['city']; ?></td>
+                    <td><?= $row['province']; ?></td>
+                    <td>
+                      
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                      <div class="btn-group" role="group">
+                        <button type="button" value="<?= $row['cust_id'];?>" class="viewCustomerBtn btn btn-outline-success btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">View</a>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" value="<?= $row['cust_id'];?>" class="editCustomerBtn btn btn-outline-info btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">Edit</a>
+                      </div>
+                      <div class="btn-group" role="group">
+                        <button type="button" value="<?= $row['cust_id'];?>" class="deleteCustomerBtn btn btn-outline-danger btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">Delete</a>
+                      </div>
+                      </form>
+                    </td>
+                  </tr>
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      
-            <footer class="footer">
-            <div class="row g-0 justify-content-between fs--1 mt-4 mb-0" style="margin-left: 50px">
-              <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">Thank you for using Reservoir <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy;</p>
-              </div>
-            </div>
-          </footer>
+    </div>
+
+    </div>
+    <footer class="footer">
+      <div class="row g-0 justify-content-between fs--1 mt-4 mb-0" style="margin-left: 50px">
+        <div class="col-12 col-sm-auto text-center">
+          <p class="mb-0 text-600">Thank you for using Reservoir <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy;</p>
+        </div>
+      </div>
+    </footer>
     </main>
+
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
-
-
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
+
     <script src="../vendors/popper/popper.min.js"></script>
     <script src="../vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../vendors/anchorjs/anchor.min.js"></script>
     <script src="../vendors/is/is.min.js"></script>
-    <script src="../vendors/fullcalendar/main.min.js"></script>
-    <script src="../assets/js/flatpickr.js"></script>
-    <script src="../vendors/dayjs/dayjs.min.js"></script>
     <script src="../vendors/fontawesome/all.min.js"></script>
     <script src="../vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
+    <script src="../vendors/list.js/list.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script> src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"</script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+
+  <script>
+    $(document).on('submit', '#saveCustomer', function (e) {
+      e.preventDefault();
+      $(".modal-backdrop").remove();
+      var formData = new FormData(this);
+      formData.append("add_customer", true);
+      $.ajax({
+        type: "POST",
+        url: "./customer-pull-config.php",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+          var res = jQuery.parseJSON(response);
+          if(res.status == 422){
+            $('#errorMessage').removeClass('d-none');
+            $('#errorMessage').text(res.message);
+          }else if(res.status == 200){
+            $('#errorMessage').addClass('d-none');
+            $("#addCustomerModal").modal('hide');
+            $('#saveCustomer')[0].reset();
+            alertify.set('notifier','position', 'top-right');
+            alertify.success(res.message);
+
+            $('#pull-table').load(location.href + " #pull-table");
+          }
+        }
+      });
+    });
+
+
+      $(document).on('click', '.editCustomerBtn', function () {
+        
+        var cust_id = $(this).val();
+        $.ajax({
+          type: "GET",
+          url: "customer-pull-config.php?cust_id=" + cust_id,
+          success: function (response) {
+            
+            var res =jQuery.parseJSON(response);
+            if(res.status == 422){
+
+              alert(res.message);
+          }else if(res.status == 200){
+
+            $('#cust_id').val(res.data.cust_id);
+            $('#fname').val(res.data.first_name);
+            $('#lname').val(res.data.last_name);
+            $('#phone').val(res.data.phone_number);
+            $('#street').val(res.data.street);
+            $('#barangay').val(res.data.barangay);
+            $('#city').val(res.data.city);
+            $('#province').val(res.data.province);
+
+            $("#customerEditModal").modal('show');
+
+            $('#pull-table').load(location.href + " #pull-table");
+          }
+          }
+        });
+      });
+
+
+    $(document).on('submit', '#updateCustomer', function (e) {
+      e.preventDefault();
+
+      $(".modal-backdrop").remove();
+
+      var formData = new FormData(this);
+      formData.append("update_customer", true);
+
+      $.ajax({
+        type: "POST",
+        url: "customer-pull-config.php",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+          var res = jQuery.parseJSON(response);
+          if(res.status == 422){
+            $('#errorMessageUpdate').removeClass('d-none');
+            $('#errorMessageUpdate').text(res.message);
+          }else if(res.status == 200){
+
+            $('#errorMessageUpdate').addClass('d-none');
+            alertify.set('notifier','position', 'top-right');
+            alertify.success(res.message);
+
+            $("#customerEditModal").modal('hide');
+            $('#updateCustomer')[0].reset();
+            
+
+            $('#pull-table').load(location.href + " #pull-table");
+          }
+        }
+      });
+    });
+
+
+    $(document).on('click', '.viewCustomerBtn', function () {
+        
+        var cust_id = $(this).val();
+        $.ajax({
+          type: "GET",
+          url: "customer-pull-config.php?cust_id=" + cust_id,
+          success: function (response) {
+            
+            var res =jQuery.parseJSON(response);
+            if(res.status == 422){
+
+              alert(res.message);
+          }else if(res.status == 200){
+
+            $('#view_fname').text(res.data.first_name);
+            $('#view_lname').text(res.data.last_name);
+            $('#view_phone').text(res.data.phone_number);
+            $('#view_street').text(res.data.street);
+            $('#view_barangay').text(res.data.barangay);
+            $('#view_city').text(res.data.city);
+            $('#view_province').text(res.data.province);
+
+            $("#customerViewModal").modal('show');
+
+          }
+          }
+        });
+    });
+
+    $(document).on('click', '.deleteCustomerBtn', function (e) {
+      e.preventDefault();
+
+      if(confirm('Are you sure you want to delete this data?')){
+        var cust_id = $(this).val();
+        $.ajax({
+          type: "POST",
+          url: "customer-pull-config.php",
+          data: {
+              'delete_customer': true,
+              'cust_id': cust_id
+          },
+          success: function (response) {
+            var res =jQuery.parseJSON(response);
+            if(res.status == 500){
+
+              alert(res.message);
+            }else{
+              alert(res.message);
+
+              $('#pull-table').load(location.href + " #pull-table");
+            }
+          } 
+        });
+      }
+    });
+    
+    //
+
+
+  
+
+  </script>
+
+
+
+
+
+
+
+
   </body>
 
 </html>
-

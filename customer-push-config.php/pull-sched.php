@@ -43,6 +43,10 @@ require_once "../includes/connect.php";
     <link href="../vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
     <link href="../assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="../assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    
+    
 
 
     <!-- jQuery library -->
@@ -66,6 +70,158 @@ require_once "../includes/connect.php";
   </head>
 
   <body>
+
+<!--Add Customer Modal -->
+<div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id ="saveCustomer" method="POST">
+        <div class="modal-body">
+          <div class="alert">
+              <div id="errorMessage" class="alert alert-warning d-none"></div>
+          </div>
+          <div class="mb-3">
+            <label>First Name</label>
+              <input type="text" name="fname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" name="lname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Phone</label>
+            <input type="text" name="phone" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Street</label>
+            <input type="text" name="street" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Barangay</label>
+            <input type="text" name="barangay" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <input type="text" name="city" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Province</label>
+            <input type="text" name="province" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add Customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Customer Modal -->
+<div class="modal fade" id="customerEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id ="updateCustomer" method="POST">
+        <div class="modal-body">
+          <div class="alert">
+              <div id="errorMessageUpdate" class="alert alert-warning d-none"></div>
+              <input type="hidden" name="cust_id" id="cust_id">
+          </div>
+          <div class="mb-3">
+            <label>First Name</label>
+              <input type="text" name="fname" id="fname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" name="lname" id="lname" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Phone</label>
+            <input type="text" name="phone" id="phone" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Street</label>
+            <input type="text" name="street" id="street" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Barangay</label>
+            <input type="text" name="barangay" id="barangay" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <input type="text" name="city" id="city" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Province</label>
+            <input type="text" name="province" id="province" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Update Customer</button>
+        </div>
+      </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Customer Modal -->
+<div class="modal fade" id="customerViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label>First Name</label>
+            <p id="view_fname"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Last Name</label>
+            <p id="view_lname"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Phone</label>
+            <p id="view_phone"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Street</label>
+            <p id="view_street"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Barangay</label>
+            <p id="view_barangay"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <p id="view_city"class="form-control"></p>
+          </div>
+          <div class="mb-3">
+            <label>Province</label>
+            <p id="view_province"class="form-control"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
@@ -376,7 +532,7 @@ require_once "../includes/connect.php";
             }
           </script>
           <!-----------------------------------START OF MAIN CONTENT------------------------------------>
-  <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["first_name","last_name","phone","street","barangay","city","province"],"page":10,"pagination":true}'>
+  <div class="card mb-3" id="ordersTable">
     <div class="card-header">
       <?php include ('./customer-add-alert.php');?>
       <div class="row flex-between-center">
@@ -384,14 +540,14 @@ require_once "../includes/connect.php";
           <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Pull Orders</h5>
         </div>
         <div class="col-4 col-sm-2 d-flex align pe-0 mb-3 ml-2">
-          <a href ="./cust_pull_add.php" class="btn btn-outline-primary btn-sm">Add Customer</a>
+          <a href ="./cust_pull_add.php" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addCustomerModal">Add Customer</a>
         </div>
       </div>
       <div class="tab-content">
         <?php include('customer-add-alert.php')?>
         <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8" id="dom-1495d2ac-c29e-4883-b8fb-8c2ddb50f5c8">
           <div class="table-responsive scrollbar">
-            <table class="table table-bordered table-striped fs--1 mb-0">
+            <table id ="pull-table" class="table table-bordered table-striped fs--1 mb-0">
               <thead class="bg-200 text-900">
                 
                 <tr>
@@ -425,15 +581,14 @@ require_once "../includes/connect.php";
                     <td>
                       
                     <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <a href="./customer-pull-view.php?id=<?= $row['cust_id']; ?>" class="btn btn-outline-success btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">View</a>
+                      <div class="btn-group" role="group">
+                        <button type="button" value="<?= $row['cust_id'];?>" class="viewCustomerBtn btn btn-outline-success btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">View</a>
                       </div>
                       <div class="btn-group" role="group">
-                        <a href="./customer-pull-edit.php?id=<?= $row['cust_id']; ?>" class="btn btn-outline-info btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">Edit</a>
+                        <button type="button" value="<?= $row['cust_id'];?>" class="editCustomerBtn btn btn-outline-info btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">Edit</a>
                       </div>
-                      <form action="./customer-pull-config.php" method="POST">
                       <div class="btn-group" role="group">
-                        <button type="submit" name ="delete_customer" value="<?= $row['cust_id'];?>"class="btn btn-outline-danger btn-sm"style="display:inline-block;vertical-align:middle; float:left;">Delete</a>
+                        <button type="button" value="<?= $row['cust_id'];?>" class="deleteCustomerBtn btn btn-outline-danger btn-sm" style="display:inline-block;vertical-align:middle; margin-right:6px;">Delete</a>
                       </div>
                       </form>
                     </td>
@@ -463,6 +618,7 @@ require_once "../includes/connect.php";
     <!-- ===============================================-->
     <!--    JavaScripts-->
     <!-- ===============================================-->
+
     <script src="../vendors/popper/popper.min.js"></script>
     <script src="../vendors/bootstrap/bootstrap.min.js"></script>
     <script src="../vendors/anchorjs/anchor.min.js"></script>
@@ -473,6 +629,182 @@ require_once "../includes/connect.php";
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
     <script src="../vendors/list.js/list.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script> src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"</script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+
+  <script>
+    $(document).on('submit', '#saveCustomer', function (e) {
+      e.preventDefault();
+      $(".modal-backdrop").remove();
+      var formData = new FormData(this);
+      formData.append("add_customer", true);
+      $.ajax({
+        type: "POST",
+        url: "./customer-pull-config.php",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+          var res = jQuery.parseJSON(response);
+          if(res.status == 422){
+            $('#errorMessage').removeClass('d-none');
+            $('#errorMessage').text(res.message);
+          }else if(res.status == 200){
+            $('#errorMessage').addClass('d-none');
+            $("#addCustomerModal").modal('hide');
+            $('#saveCustomer')[0].reset();
+            alertify.set('notifier','position', 'top-right');
+            alertify.success(res.message);
+
+            $('#pull-table').load(location.href + " #pull-table");
+          }
+        }
+      });
+    });
+
+
+      $(document).on('click', '.editCustomerBtn', function () {
+        
+        var cust_id = $(this).val();
+        $.ajax({
+          type: "GET",
+          url: "customer-pull-config.php?cust_id=" + cust_id,
+          success: function (response) {
+            
+            var res =jQuery.parseJSON(response);
+            if(res.status == 422){
+
+              alert(res.message);
+          }else if(res.status == 200){
+
+            $('#cust_id').val(res.data.cust_id);
+            $('#fname').val(res.data.first_name);
+            $('#lname').val(res.data.last_name);
+            $('#phone').val(res.data.phone_number);
+            $('#street').val(res.data.street);
+            $('#barangay').val(res.data.barangay);
+            $('#city').val(res.data.city);
+            $('#province').val(res.data.province);
+
+            $("#customerEditModal").modal('show');
+
+            $('#pull-table').load(location.href + " #pull-table");
+          }
+          }
+        });
+      });
+
+
+    $(document).on('submit', '#updateCustomer', function (e) {
+      e.preventDefault();
+
+      $(".modal-backdrop").remove();
+
+      var formData = new FormData(this);
+      formData.append("update_customer", true);
+
+      $.ajax({
+        type: "POST",
+        url: "customer-pull-config.php",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+
+          var res = jQuery.parseJSON(response);
+          if(res.status == 422){
+            $('#errorMessageUpdate').removeClass('d-none');
+            $('#errorMessageUpdate').text(res.message);
+          }else if(res.status == 200){
+
+            $('#errorMessageUpdate').addClass('d-none');
+            alertify.set('notifier','position', 'top-right');
+            alertify.success(res.message);
+
+            $("#customerEditModal").modal('hide');
+            $('#updateCustomer')[0].reset();
+            
+
+            $('#pull-table').load(location.href + " #pull-table");
+          }
+        }
+      });
+    });
+
+
+    $(document).on('click', '.viewCustomerBtn', function () {
+        
+        var cust_id = $(this).val();
+        $.ajax({
+          type: "GET",
+          url: "customer-pull-config.php?cust_id=" + cust_id,
+          success: function (response) {
+            
+            var res =jQuery.parseJSON(response);
+            if(res.status == 422){
+
+              alert(res.message);
+          }else if(res.status == 200){
+
+            $('#view_fname').text(res.data.first_name);
+            $('#view_lname').text(res.data.last_name);
+            $('#view_phone').text(res.data.phone_number);
+            $('#view_street').text(res.data.street);
+            $('#view_barangay').text(res.data.barangay);
+            $('#view_city').text(res.data.city);
+            $('#view_province').text(res.data.province);
+
+            $("#customerViewModal").modal('show');
+
+          }
+          }
+        });
+    });
+
+    $(document).on('click', '.deleteCustomerBtn', function (e) {
+      e.preventDefault();
+
+      if(confirm('Are you sure you want to delete this data?')){
+        var cust_id = $(this).val();
+        $.ajax({
+          type: "POST",
+          url: "customer-pull-config.php",
+          data: {
+              'delete_customer': true,
+              'cust_id': cust_id
+          },
+          success: function (response) {
+            var res =jQuery.parseJSON(response);
+            if(res.status == 500){
+
+              alert(res.message);
+            }else{
+              alert(res.message);
+
+              $('#pull-table').load(location.href + " #pull-table");
+            }
+          } 
+        });
+      }
+    });
+    
+    //
+
+
+  
+
+  </script>
+
+
+
+
+
+
+
+
   </body>
 
 </html>
