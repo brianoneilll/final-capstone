@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2022 at 08:54 AM
+-- Generation Time: Jul 26, 2022 at 05:11 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `customer` (
-  `id` int(11) NOT NULL,
+  `cust_id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `phone_number` varchar(15) NOT NULL,
@@ -43,12 +43,16 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`id`, `first_name`, `last_name`, `phone_number`, `pass`, `street`, `barangay`, `city`, `province`) VALUES
-(10, 'Brian Oniel', 'Galang', '0', '$2y$10$kbfNSnxbfCLRUoJlWawfVeKO9i32kCYdMcSHEBIGbGQyLg6dAxLFK', 'Cuatro de Julio', 'Lourdes Sur East', 'ANGELES CITY', 'Pampanga'),
-(11, 'Jeffrey', 'Canlas', '', '$2y$10$dAcho4/j66pdpJdk12PsMOlqJSWoFyh/KFxo7m8j.V9qweHCsVzPu', 'Carlota de Leon', 'Sta. Teresita', 'Angeles ', 'Pampanga'),
-(12, 'Jeffrey', 'Canlas', '+639486851842', '$2y$10$xcIZwHwh4H8AI2riSnL36OOfELMm2ABGa/ldbhO7j3/V/huadNMHG', 'Carlota de Leon', 'Sta. Teresita', 'Angeles', 'Pampanga'),
-(13, 'Ilah', 'Zamora', '+639339542909', '$2y$10$QHy6F5N.aJVQ1Z8SK1v6UuO/IB0R02UzjNeYUmJ6NLHTlWzFWJHoa', 'Camalig', 'Lourdes Sur', 'Angeles', 'Pampanga'),
-(14, 'Brian', 'Galang', '+639486851842', '$2y$10$TR..SjsH9BVaLVGBBaGmdu/nToiq.hRainLYFfe0/sgcUQDG8Z97O', 'Cuatro de Julio St.', 'Lourdes Sur East', 'Angeles City', 'Pampanga');
+INSERT INTO `customer` (`cust_id`, `first_name`, `last_name`, `phone_number`, `pass`, `street`, `barangay`, `city`, `province`) VALUES
+(1, 'Brian Oniel', 'Galang', '+639486851842', '$2y$10$ZTo3M2dvw5pVQXNTO/7HdO9ChDC1UFqFCko89OuA2/rb2Y/NORbcS', 'Cuatro de Julio St.', 'Lourdes Sur East', 'ANGELES CITY', 'Pampanga'),
+(2, 'Ilah', 'Zamora', '+639339542909', '$2y$10$wQ8l4PONc3ro2QqEHqoNEuQqqEv4fk2fC50Z8kShoMZNa8XoIDufe', 'Camalig', 'Lourdes Sur', 'Angeles', 'Pampanga'),
+(3, 'Oniel', 'Brian', '09991234567', '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'ANGELES CITY', 'Pampanga'),
+(4, 'johnny Dela', 'Dayrit', '09991234567', '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'ANGELES CITY', 'Pampanga'),
+(5, 'mary', 'Buenaventura', '09123456789', '', 'Camalig', 'Lourdes Sur East', 'Angeles', 'Pampanga'),
+(6, 'ADrian', 'Onin', '0998765432', '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'ANGELES CITY', 'Pampanga'),
+(7, 'ADrian', 'Onin', '0998765432', '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'ANGELES CITY', 'Pampanga'),
+(8, 'Elthon ', 'Cayetano', '09996783452', '', 'ewan', 'Sapang Bato', 'Angeles', 'Pampanga'),
+(9, 'kevin', 'Galang', '09996542314', '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'Angeles', 'Pampanga');
 
 -- --------------------------------------------------------
 
@@ -65,17 +69,6 @@ CREATE TABLE `store` (
   `Province` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `store`
---
-
-INSERT INTO `store` (`id`, `Names`, `Street`, `Barangay`, `City`, `Province`) VALUES
-(49, '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'Angeles City', 'Pampanga'),
-(50, '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'Angeles City', 'Pampanga'),
-(51, '', 'Cuatro de Julio St.', 'Lourdes Sur East', 'Angeles City', 'Pampanga'),
-(52, '', '1325 Cuatro de Julio Street Lourdes Sur East', 'Lourdes Sur East', 'Angeles City', 'Pampanga'),
-(53, '', 'Camalig', 'Lourdes Sur East', 'Angeles', 'Pampanga');
-
 -- --------------------------------------------------------
 
 --
@@ -83,9 +76,13 @@ INSERT INTO `store` (`id`, `Names`, `Street`, `Barangay`, `City`, `Province`) VA
 --
 
 CREATE TABLE `vendor` (
-  `id` int(11) NOT NULL,
+  `vendor_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `storename` varchar(255) NOT NULL,
+  `storeadd` varchar(255) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `dc` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -93,13 +90,11 @@ CREATE TABLE `vendor` (
 -- Dumping data for table `vendor`
 --
 
-INSERT INTO `vendor` (`id`, `username`, `password`, `created_at`) VALUES
-(42, 'khito', '$2y$10$7zpKdJC/A2XcD8rppX2fUug62UP52TpOitVXvzsnNoJgj0PvID/26', '2022-07-03 00:24:27'),
-(43, 'yeye', '$2y$10$INZHejEHN67wCKgQhphb2udA7BhSJcHlZW.FWfoVwcMPFlGvIn1GS', '2022-07-03 00:30:30'),
-(44, 'qwer', '$2y$10$Z2htN.F24xLK1yCn6BHEDuDiXjrzfzClsSe6IlHvKYKmZw0BNLzHq', '2022-07-03 00:35:23'),
-(45, 'qwe', '$2y$10$y6n1oV00aZJwJ6Y63TWI5uGsazQfs3zEzxrqQm1MXAhkrrkBArV3y', '2022-07-03 00:43:20'),
-(46, 'ching', '$2y$10$ORcu2srhtILHBnP2MOdGM.zqNSN35dac6R6Ba5dTjH1BIdWHLkS0G', '2022-07-03 14:42:30'),
-(47, 'ash', '$2y$10$gdTAcbtq68WxdRYH0oiN3upRnIE9otU0z2XTKR2ch3HPeWfsC0eje', '2022-07-03 14:45:55');
+INSERT INTO `vendor` (`vendor_id`, `username`, `password`, `storename`, `storeadd`, `phone`, `dc`, `created_at`) VALUES
+(1, 'test5', '$2y$10$0rxA0v3rU6pjeq5B07CCl.EENOyY3nDKIk8WfXl4i527q0e6Suk8W', 'store5', '', '+639486851842', 'desc5', '2022-07-24 20:12:53'),
+(2, 'zoro', '$2y$10$jBi9NxoRQpz4MLAHYwzbfeQ5OP1xHeTzHo2YRHEHAMQ0XyMR16ABq', 'Aqua Laguna', 'Lourdes Sur East', '0948', '', '2022-07-25 14:29:54'),
+(3, 'sanji', '$2y$10$SNouZ/Hfz1vqNPK8zDMH2ON/zurpVVmfqj9FI54ntw4Sh/u1hTuTG', 'Aqua', '', '09486851842', 'desc6', '2022-07-25 14:30:26'),
+(4, 'Jeffrey', '$2y$10$jNTp4LSz2Qlu9t5jyR0PVOuaiOtpPTq9qpu7CrG93oYqnuHD0g4t.', 'Jelaine', 'Sta Teresita', '09991234567', 'hdjakhdakja', '2022-07-25 15:32:13');
 
 --
 -- Indexes for dumped tables
@@ -109,7 +104,7 @@ INSERT INTO `vendor` (`id`, `username`, `password`, `created_at`) VALUES
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`cust_id`);
 
 --
 -- Indexes for table `store`
@@ -121,7 +116,7 @@ ALTER TABLE `store`
 -- Indexes for table `vendor`
 --
 ALTER TABLE `vendor`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`vendor_id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
@@ -132,19 +127,19 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `vendor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
