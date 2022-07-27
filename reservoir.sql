@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2022 at 09:08 AM
+-- Generation Time: Jul 27, 2022 at 12:42 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `adminaccounts` (
-  `adminId` varchar(255) NOT NULL,
+  `adminId` int(255) NOT NULL,
   `userName` varchar(32) DEFAULT NULL,
   `firstName` tinytext DEFAULT NULL,
   `lastName` tinytext DEFAULT NULL,
@@ -39,6 +39,17 @@ CREATE TABLE `adminaccounts` (
   `accessLevel` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `adminaccounts`
+--
+
+INSERT INTO `adminaccounts` (`adminId`, `userName`, `firstName`, `lastName`, `phoneNumber`, `emailAddress`, `password`, `role`, `accessLevel`) VALUES
+(1001, 'jepoy01', 'Jeffrey', 'Canlas', 9550078343, 'jecanlas@cca.edu.ph', 'salnslangkakalampag', 'admin', '10'),
+(1002, 'eltz02', 'Elthon Jon', 'Cayetano', 9616055377, 'ejcayetano@cca.edu.ph', 'bambitaWasalak', 'admin', '10'),
+(1003, 'yanyan03', 'Brian Oniel', 'Galang', 9550987653, 'bogalang@cca.edu.ph', 'chowchow', 'admin', '10'),
+(1004, 'bj04', 'Bhrandel John', 'Perez', 9345078343, 'bjperez@cca.edu.ph', 'ikaanimnabata', 'admin', '10'),
+(1005, 'aya05', 'Ilah', 'Zamora', 9323456343, 'izamora@cca.edu.ph', 'abraham', 'admin', '10');
+
 -- --------------------------------------------------------
 
 --
@@ -46,7 +57,7 @@ CREATE TABLE `adminaccounts` (
 --
 
 CREATE TABLE `customeraccounts` (
-  `customerId` varchar(255) NOT NULL,
+  `customerId` int(11) NOT NULL,
   `userName` varchar(255) DEFAULT NULL,
   `firstName` tinytext DEFAULT NULL,
   `lastName` tinytext DEFAULT NULL,
@@ -62,8 +73,8 @@ CREATE TABLE `customeraccounts` (
 --
 
 CREATE TABLE `products` (
-  `productId` varchar(255) NOT NULL,
-  `storeId` varchar(255) DEFAULT NULL,
+  `productId` int(11) NOT NULL,
+  `storeId` int(11) NOT NULL,
   `productName` tinytext DEFAULT NULL,
   `price` int(32) DEFAULT NULL,
   `volume` int(32) DEFAULT NULL
@@ -76,7 +87,7 @@ CREATE TABLE `products` (
 --
 
 CREATE TABLE `stores` (
-  `storeID` varchar(255) NOT NULL,
+  `storeID` int(11) NOT NULL,
   `storeName` tinytext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -87,10 +98,10 @@ CREATE TABLE `stores` (
 --
 
 CREATE TABLE `storetransactions` (
-  `transactionId` varchar(255) NOT NULL,
-  `storeId` varchar(255) DEFAULT NULL,
-  `customerId` varchar(255) DEFAULT NULL,
-  `productId` varchar(255) DEFAULT NULL,
+  `transactionId` int(11) NOT NULL,
+  `storeId` int(11) NOT NULL,
+  `customerId` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
   `quantity` int(32) DEFAULT NULL,
   `amount` bigint(100) DEFAULT NULL,
   `modeOfPayment` text DEFAULT NULL,
@@ -104,9 +115,9 @@ CREATE TABLE `storetransactions` (
 --
 
 CREATE TABLE `subscriptions` (
-  `subscriptionId` varchar(255) NOT NULL,
+  `subscriptionId` int(11) NOT NULL,
   `subscriptionName` varchar(255) DEFAULT NULL,
-  `vendorId` varchar(255) DEFAULT NULL,
+  `vendorId` int(11) NOT NULL,
   `validity` bigint(100) DEFAULT NULL,
   `startDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `endDate` datetime DEFAULT NULL
@@ -119,9 +130,9 @@ CREATE TABLE `subscriptions` (
 --
 
 CREATE TABLE `subscriptiontransactions` (
-  `transactionId` varchar(255) NOT NULL,
-  `vendorId` varchar(255) DEFAULT NULL,
-  `subscriptionId` varchar(255) DEFAULT NULL,
+  `transactionId` int(11) NOT NULL,
+  `vendorId` int(11) NOT NULL,
+  `subscriptionId` int(11) NOT NULL,
   `amount` int(32) DEFAULT NULL,
   `modeOfPayment` text DEFAULT NULL,
   `date` datetime DEFAULT NULL
@@ -134,15 +145,15 @@ CREATE TABLE `subscriptiontransactions` (
 --
 
 CREATE TABLE `vendoraccounts` (
-  `vendorId` varchar(255) NOT NULL,
+  `vendorId` int(11) NOT NULL,
   `userName` varchar(32) DEFAULT NULL,
   `firstName` tinytext DEFAULT NULL,
   `lastName` tinytext DEFAULT NULL,
   `phoneNumber` bigint(11) NOT NULL,
   `emailAddress` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `storeId` varchar(255) DEFAULT NULL,
-  `subscriptionId` varchar(255) DEFAULT NULL
+  `storeId` int(11) NOT NULL,
+  `subscriptionId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -152,11 +163,11 @@ CREATE TABLE `vendoraccounts` (
 --
 
 CREATE TABLE `walletbalances` (
-  `accountNumber` varchar(255) NOT NULL,
+  `accountNumber` int(11) NOT NULL,
   `accountName` text DEFAULT NULL,
   `balance` bigint(255) DEFAULT NULL,
-  `vendorId` varchar(255) DEFAULT NULL,
-  `storeId` varchar(255) DEFAULT NULL
+  `vendorId` int(11) NOT NULL,
+  `storeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -166,9 +177,9 @@ CREATE TABLE `walletbalances` (
 --
 
 CREATE TABLE `wallettransactions` (
-  `transactionId` varchar(255) NOT NULL,
-  `customerId` varchar(255) DEFAULT NULL,
-  `StoreId` varchar(255) DEFAULT NULL,
+  `transactionId` int(11) NOT NULL,
+  `customerId` int(11) NOT NULL,
+  `StoreId` int(11) NOT NULL,
   `amount` int(32) DEFAULT NULL,
   `modeOfPayment` text DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -246,6 +257,70 @@ ALTER TABLE `wallettransactions`
   ADD PRIMARY KEY (`transactionId`),
   ADD KEY `customerId` (`customerId`),
   ADD KEY `StoreId` (`StoreId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `adminaccounts`
+--
+ALTER TABLE `adminaccounts`
+  MODIFY `adminId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1006;
+
+--
+-- AUTO_INCREMENT for table `customeraccounts`
+--
+ALTER TABLE `customeraccounts`
+  MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `stores`
+--
+ALTER TABLE `stores`
+  MODIFY `storeID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `storetransactions`
+--
+ALTER TABLE `storetransactions`
+  MODIFY `transactionId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `subscriptions`
+--
+ALTER TABLE `subscriptions`
+  MODIFY `subscriptionId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `subscriptiontransactions`
+--
+ALTER TABLE `subscriptiontransactions`
+  MODIFY `transactionId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `vendoraccounts`
+--
+ALTER TABLE `vendoraccounts`
+  MODIFY `vendorId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `walletbalances`
+--
+ALTER TABLE `walletbalances`
+  MODIFY `accountNumber` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wallettransactions`
+--
+ALTER TABLE `wallettransactions`
+  MODIFY `transactionId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
