@@ -39,6 +39,7 @@ require_once "../includes/connect.php";
     <!-- ===============================================-->
     <link href="../vendors/fullcalendar/main.min.css" rel="stylesheet">
     <link href="../vendors/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="../vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
@@ -128,6 +129,13 @@ require_once "../includes/connect.php";
                   <a class="nav-link" href="clients.php" role="button" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-users">
                     </span></span><span class="nav-link-text ps-1">Clients</span></div>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="products.php" role="button" aria-expanded="false">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fa-solid fa-peso-sign">
+                    </span></span><span class="nav-link-text ps-1">Finance</span></div>
                   </a>
                 </li>
             </div>
@@ -384,7 +392,7 @@ require_once "../includes/connect.php";
                       <div class="position-relative z-index-2">
                         <div>
                           <h3 class="text-primary mb-1">Good Afternoon, 
-                          <?= $_SESSION['username']; ?>
+                          <?php $name=$Session['username']; echo $name; ?>
                             </h3>
                           <p>Here’s what happening with your store today </p>
                         </div>
